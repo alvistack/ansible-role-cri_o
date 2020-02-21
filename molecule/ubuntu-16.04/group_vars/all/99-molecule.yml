@@ -1,3 +1,5 @@
+---
+
 # (c) Wong Hoi Sing Edison <hswong3i@pantarei-design.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,17 +13,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-ansible>=2.9.0
-ansible-lint
-ansible-runner
-ansible-runner-http
-argcomplete
-docker
-flake8
-molecule>=3.0.0
-git+https://github.com/ansible-community/molecule-vagrant.git@master#egg=molecule-vagrant
-netaddr
-openshift
-python-vagrant
-yamllint
