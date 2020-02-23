@@ -19,6 +19,15 @@
   become: true
   tasks:
     - name: crio --version
+      environment:
+        PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
       command: crio --version
+      register: result
+      changed_when: result is not succeeded
+
+    - name: crictl --runtime-endpoint unix:///var/run/crio/crio.sock version
+      environment:
+        PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      command: crictl --runtime-endpoint unix:///var/run/crio/crio.sock version
       register: result
       changed_when: result is not succeeded

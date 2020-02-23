@@ -14,42 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: yum install gnupg2
-  yum:
-    name: "gnupg2"
-    state: "present"
-  register: result
-  until: result is succeeded
-  tags: crio
-
-- name: rpm --import
-  rpm_key:
-    key: "{{ item.key }}"
-    state: "{{ item.state }}"
-  loop: "{{ _rpm_key }}"
-  register: result
-  until: result is succeeded
-  tags: crio
-
-- name: yum-config-manager --add-repo
-  yum_repository:
-    file: "{{ item.file }}"
-    name: "{{ item.name }}"
-    description: "{{ item.description }}"
-    baseurl: "{{ item.baseurl }}"
-    enabled: "{{ item.enabled }}"
-    gpgcheck: "{{ item.gpgcheck }}"
-    repo_gpgcheck: "{{ item.repo_gpgcheck }}"
-    gpgkey: "{{ item.gpgkey }}"
-    state: "{{ item.state }}"
-  loop: "{{ _yum_repository }}"
-  tags: crio
-
 - name: yum install
   yum:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
-  loop: "{{ crio_package }}"
+  loop: "{{ _yum }}"
   register: result
   until: result is succeeded
-  tags: crio
+  tags: cri_o

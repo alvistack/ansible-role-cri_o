@@ -14,14 +14,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: bootstrap
-  src: https://github.com/alvistack/ansible-role-bootstrap
-  version: develop
-
 - name: python
   src: https://github.com/alvistack/ansible-role-python
   version: develop
 
-- name: crictl
-  src: https://github.com/alvistack/ansible-role-crictl
+- name: git
+  src: https://github.com/alvistack/ansible-role-git
+  version: develop
+
+- name: golang
+  src: https://github.com/alvistack/ansible-role-golang
+  version: develop
+
+- name: runc
+  src: https://github.com/alvistack/ansible-role-runc
+  version: develop
+
+- name: conmon
+  src: https://github.com/alvistack/ansible-role-conmon
+  version: develop
+
+- name: cri_tools
+  src: https://github.com/alvistack/ansible-role-cri_tools
   version: develop

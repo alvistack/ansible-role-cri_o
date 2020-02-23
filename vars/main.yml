@@ -13,3 +13,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+_cri_o_download:
+  v1.17.0:
+    url: "https://github.com/cri-o/cri-o/archive/v1.17.0.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.0.tar.gz"
+    checksum: "sha1:d3dcefa4416ffc1a99da47183bf87ffb737c338c"
+  v1.16.3:
+    url: "https://github.com/cri-o/cri-o/archive/v1.16.3.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.16.3.tar.gz"
+    checksum: "sha1:1b77cc34441500580ae3ab89ac42358298138a68"

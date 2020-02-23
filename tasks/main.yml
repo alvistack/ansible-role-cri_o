@@ -16,7 +16,7 @@
 
 - name: include default variables
   include_vars: "../vars/main.yml"
-  tags: crio
+  tags: cri_o
 
 - name: include release specific variables
   include_vars: "{{ lookup('first_found', _params) }}"
@@ -31,7 +31,7 @@
       paths:
         - "../vars"
   ignore_errors: true
-  tags: crio
+  tags: cri_o
 
 - name: include release specific tasks
   include_tasks: "{{ lookup('first_found', _params) }}"
@@ -46,7 +46,7 @@
       paths:
         - "."
   ignore_errors: true
-  tags: crio
+  tags: cri_o
 
 - name: prepare directories
   file:
@@ -56,8 +56,15 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
+    - { dest: "/etc/containers" }
+    - { dest: "/etc/crio" }
+    - { dest: "/etc/systemd/system" }
     - { dest: "/usr/lib/modules-load.d" }
-  tags: crio
+    - { dest: "/usr/local/bin" }
+    - { dest: "/usr/local/share/containers/oci/hooks.d" }
+    - { dest: "/usr/local/share/oci-umount/oci-umount.d" }
+    - { dest: "{{ cri_o_download.dest | dirname }}" }
+  tags: cri_o
 
 - name: tweak modeprobe entries
   lineinfile:
@@ -67,10 +74,10 @@
     state: "{{ item.state | default('present') }}"
     insertafter: "EOF"
     create: true
-  loop: "{{ crio_modprobe }}"
+  loop: "{{ cri_o_modprobe }}"
   notify:
-    - crio | systemctl restart systemd-modules-load
-  tags: crio
+    - cri_o | systemctl restart systemd-modules-load
+  tags: cri_o
 
 - name: tweak sysctl entries
   sysctl:
@@ -79,14 +86,88 @@
     value: "{{ item.value }}"
     state: "{{ item.state | default('present') }}"
     reload: false
-  loop: "{{ crio_sysctl }}"
+  loop: "{{ cri_o_sysctl }}"
   notify:
-    - crio | sysctl --system
-  tags: crio
+    - cri_o | sysctl --system
+  tags: cri_o
+
+- name: download archive
+  vars:
+    ansible_python_interpreter: "python3"
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    checksum: "{{ item.checksum }}"
+    timeout: 300
+  loop:
+    - "{{ cri_o_download }}"
+  register: get_url_result
+  until: get_url_result is succeeded
+  tags: cri_o
+
+- name: build package
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  shell: |
+    set -o pipefail
+    TMP_DIR="$(mktemp -d)" \
+      && export GOPATH=$TMP_DIR \
+      && mkdir -p $GOPATH/src/github.com/cri-o/cri-o \
+      && cd $GOPATH/src/github.com/cri-o/cri-o \
+      && tar -zx -C . -f {{ cri_o_download.dest }} --strip-components=1 \
+      && make BUILDTAGS='apparmor seccomp selinux' \
+      && make install \
+      && rm -rf $TMP_DIR
+  args:
+    executable: "/bin/bash"
+  when: get_url_result is changed
+  notify:
+    - cri_o | systemctl daemon-reload
+    - cri_o | systemctl restart
+  tags: cri_o
+
+- name: copy templates
+  template:
+    dest: "{{ item.dest }}"
+    src: "{{ item.src | default('./templates' + item.dest + '.j2') }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0644') }}"
+  loop:
+    - { dest: "/etc/containers/registries.conf" }
+    - { dest: "/etc/crictl.yml" }
+    - { dest: "/etc/crio/crio.conf" }
+    - { dest: "/etc/systemd/system/crio-shutdown.service" }
+    - { dest: "/etc/systemd/system/crio-wipe.service" }
+    - { dest: "/etc/systemd/system/crio.service" }
+    - { dest: "/usr/local/share/oci-umount/oci-umount.d/crio-umount.conf" }
+  notify:
+    - cri_o | systemctl daemon-reload
+    - cri_o | systemctl restart
+  tags: cri_o
+
+- name: prepare files
+  file:
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0644') }}"
+    state: "{{ item.state | default('file') }}"
+  loop:
+    - { dest: "/etc/containers/registries.conf" }
+    - { dest: "/etc/crictl.yml" }
+    - { dest: "/etc/crio/crio.conf" }
+    - { dest: "/etc/systemd/system/crio-shutdown.service" }
+    - { dest: "/etc/systemd/system/crio-wipe.service" }
+    - { dest: "/etc/systemd/system/crio.service" }
+    - { dest: "/usr/lib/modules-load.d/crio.conf" }
+    - { dest: "/usr/local/bin/crio", mode: "0755" }
+    - { dest: "/usr/local/share/oci-umount/oci-umount.d/crio-umount.conf" }
+  tags: cri_o
 
 - name: flush handlers
   meta: flush_handlers
-  tags: crio
+  tags: cri_o
 
 - name: start service
   service:
@@ -95,4 +176,4 @@
     enabled: true
   changed_when: false
   ignore_errors: true
-  tags: crio
+  tags: cri_o
