@@ -14,36 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: zypper install gpg2
-  vars:
-    ansible_python_interpreter: "python3"
-  zypper:
-    name: "gpg2"
-    state: "present"
-  register: result
-  until: result is succeeded
-  tags: crio
-
-- name: zypper addrepo
-  vars:
-    ansible_python_interpreter: "python3"
-  zypper_repository:
-    name: "{{ item.name }}"
-    repo: "{{ item.repo }}"
-    state: "{{ item.state }}"
-    disable_gpg_check: true
-    auto_import_keys: true
-    autorefresh: true
-  loop: "{{ _zypper_repository }}"
-  tags: crio
-
 - name: zypper install
   vars:
     ansible_python_interpreter: "python3"
   zypper:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
-  loop: "{{ crio_package }}"
+  loop: "{{ _zypper }}"
   register: result
   until: result is succeeded
-  tags: crio
+  tags: cri_o

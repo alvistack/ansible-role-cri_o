@@ -1,9 +1,9 @@
 # Ansible Role for CRI-O
 
-[![Travis](https://img.shields.io/travis/alvistack/ansible-role-crio.svg)](https://travis-ci.org/alvistack/ansible-role-crio)
-[![GitHub release](https://img.shields.io/github/release/alvistack/ansible-role-crio.svg)](https://github.com/alvistack/ansible-role-crio)
-[![GitHub license](https://img.shields.io/github/license/alvistack/ansible-role-crio.svg)](https://github.com/alvistack/ansible-role-crio/blob/master/LICENSE)
-[![Ansible Role](https://img.shields.io/badge/galaxy-alvistack.crio-blue.svg)](https://galaxy.ansible.com/alvistack/crio)
+[![Travis](https://img.shields.io/travis/alvistack/ansible-role-cri_o.svg)](https://travis-ci.org/alvistack/ansible-role-cri_o)
+[![GitHub release](https://img.shields.io/github/release/alvistack/ansible-role-cri_o.svg)](https://github.com/alvistack/ansible-role-cri_o)
+[![GitHub license](https://img.shields.io/github/license/alvistack/ansible-role-cri_o.svg)](https://github.com/alvistack/ansible-role-cri_o/blob/master/LICENSE)
+[![Ansible Role](https://img.shields.io/badge/galaxy-alvistack.cri_o-blue.svg)](https://galaxy.ansible.com/alvistack/cri_o)
 
 Ansible Role for CRI-O Installation.
 

@@ -18,7 +18,10 @@
   remote_user: root
   become: true
   roles:
-    - role: bootstrap
     - role: python
-    - role: crictl
-    - role: crio
+    - role: git
+    - role: golang
+    - role: runc
+    - role: conmon
+    - role: cri_tools
+    - role: cri_o

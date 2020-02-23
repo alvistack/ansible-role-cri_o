@@ -14,19 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# CRI-O release.
-crio_release: "1.17"
+# CRI-O version.
+cri_o_version: "v1.17.0"
 
-# Specify CRI-O packages.
-crio_package: "{{ _package[crio_release] }}"
+# CRI-O download details.
+cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
+
+# Cgroup management implementation used for the runtime.
+cri_o_cgroup_manager: "systemd"
 
 # Kernel modules.
-crio_modprobe:
+cri_o_modprobe:
   - { state: "present", line: "br_netfilter" }
   - { state: "present", line: "overlay" }
 
 # Entries for sysctl.
-crio_sysctl:
+cri_o_sysctl:
   - { state: "present", name: "net.bridge.bridge-nf-call-arptables", value: "1" }
   - { state: "present", name: "net.bridge.bridge-nf-call-ip6tables", value: "1" }
   - { state: "present", name: "net.bridge.bridge-nf-call-iptables", value: "1" }

@@ -14,24 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_rpm_key:
-  - { state: "present", key: "https://www.virtualbox.org/download/oracle_vbox.asc" }
-
-_yum_repository:
-  - file: "virtualbox"
-    name: "virtualbox"
-    description: "Oracle Linux / RHEL / CentOS-$releasever / $basearch - VirtualBox"
-    baseurl: "http://download.virtualbox.org/virtualbox/rpm/el/$releasever/$basearch"
-    enabled: true
-    gpgcheck: true
-    repo_gpgcheck: true
-    gpgkey: "https://www.virtualbox.org/download/oracle_vbox.asc"
-    state: "present"
-
-_package:
-  "6.1":
-    - { state: "latest", name: "VirtualBox-6.1" }
-  "6.0":
-    - { state: "latest", name: "VirtualBox-6.0" }
-  "5.2":
-    - { state: "latest", name: "VirtualBox-5.2" }
+_yum:
+  - { state: "latest", name: "btrfs-progs-devel" }
+  - { state: "latest", name: "conntrack-tools" }
+  - { state: "latest", name: "containers-common" }
+  - { state: "latest", name: "device-mapper-devel" }
+  - { state: "latest", name: "gcc" }
+  - { state: "latest", name: "glib2-devel" }
+  - { state: "latest", name: "glibc-devel" }
+  - { state: "latest", name: "glibc-static" }
+  - { state: "latest", name: "gpgme-devel" }
+  - { state: "latest", name: "iproute" }
+  - { state: "latest", name: "iptables" }
+  - { state: "latest", name: "libassuan-devel" }
+  - { state: "latest", name: "libgpg-error-devel" }
+  - { state: "latest", name: "libseccomp-devel" }
+  - { state: "latest", name: "libselinux-devel" }
+  - { state: "latest", name: "make" }
+  - { state: "latest", name: "pkgconfig" }
+  - { state: "latest", name: "socat" }
