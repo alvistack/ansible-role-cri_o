@@ -32,3 +32,4 @@ _yum:
   - { state: "latest", name: "make" }
   - { state: "latest", name: "pkgconfig" }
   - { state: "latest", name: "socat" }
+  - { state: "latest", name: "systemd-devel" }
