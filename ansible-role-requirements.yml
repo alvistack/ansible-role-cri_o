@@ -33,7 +33,3 @@
 - name: conmon
   src: https://github.com/alvistack/ansible-role-conmon
   version: develop
-
-- name: cri_tools
-  src: https://github.com/alvistack/ansible-role-cri_tools
-  version: develop

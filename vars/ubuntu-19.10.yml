@@ -28,7 +28,7 @@ _apt:
   - { state: "latest", name: "libgpg-error-dev" }
   - { state: "latest", name: "libgpgme11-dev" }
   - { state: "latest", name: "libseccomp-dev" }
-  - { state: "latest", name: "libselinux1-dev" }
+  - { state: "latest", name: "libselinux-dev" }
   - { state: "latest", name: "libsystemd-dev" }
   - { state: "latest", name: "libudev-dev" }
   - { state: "latest", name: "make" }
