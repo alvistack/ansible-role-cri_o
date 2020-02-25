@@ -6,7 +6,7 @@ Before=crio.service
 RequiresMountsFor=/var/lib/containers
 
 [Service]
-EnvironmentFile=-/etc/sysconfig/crio
+EnvironmentFile=-/etc/default/crio
 ExecStart=/usr/local/bin/crio \
           $CRIO_CONFIG_OPTIONS \
           $CRIO_RUNTIME_OPTIONS \

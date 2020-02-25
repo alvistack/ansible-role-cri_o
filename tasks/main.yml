@@ -56,8 +56,8 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
-    - { dest: "/etc/containers" }
     - { dest: "/etc/crio" }
+    - { dest: "/etc/default" }
     - { dest: "/etc/systemd/system" }
     - { dest: "/usr/lib/modules-load.d" }
     - { dest: "/usr/local/bin" }
@@ -136,10 +136,9 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
-    - { dest: "/etc/containers/policy.json" }
-    - { dest: "/etc/containers/registries.conf" }
     - { dest: "/etc/crictl.yml" }
     - { dest: "/etc/crio/crio.conf" }
+    - { dest: "/etc/default/crio" }
     - { dest: "/etc/systemd/system/crio-shutdown.service" }
     - { dest: "/etc/systemd/system/crio-wipe.service" }
     - { dest: "/etc/systemd/system/crio.service" }
@@ -157,8 +156,6 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
-    - { dest: "/etc/containers/policy.json" }
-    - { dest: "/etc/containers/registries.conf" }
     - { dest: "/etc/crictl.yml" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/systemd/system/crio-shutdown.service" }
