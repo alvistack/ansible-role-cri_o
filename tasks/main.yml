@@ -58,9 +58,10 @@
   loop:
     - { dest: "/etc/crio" }
     - { dest: "/etc/default" }
-    - { dest: "/etc/systemd/system" }
     - { dest: "/usr/lib/modules-load.d" }
     - { dest: "/usr/local/bin" }
+    - { dest: "/usr/local/lib/systemd/system" }
+    - { dest: "/usr/local/share/bash-completion/completions" }
     - { dest: "/usr/share/containers/oci/hooks.d" }
     - { dest: "/usr/share/oci-umount/oci-umount.d" }
     - { dest: "{{ cri_o_download.dest | dirname }}" }
@@ -117,6 +118,7 @@
       && tar -zx -C . -f {{ cri_o_download.dest }} --strip-components=1 \
       && make BUILDTAGS='apparmor seccomp selinux' \
       && make install \
+      && make install.systemd \
       && rm -rf $TMP_DIR
   args:
     executable: "/bin/bash"
@@ -139,9 +141,9 @@
     - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/default/crio" }
-    - { dest: "/etc/systemd/system/crio-shutdown.service" }
-    - { dest: "/etc/systemd/system/crio-wipe.service" }
-    - { dest: "/etc/systemd/system/crio.service" }
+    - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
+    - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
+    - { dest: "/usr/local/lib/systemd/system/crio.service" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
@@ -158,11 +160,13 @@
   loop:
     - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf" }
-    - { dest: "/etc/systemd/system/crio-shutdown.service" }
-    - { dest: "/etc/systemd/system/crio-wipe.service" }
-    - { dest: "/etc/systemd/system/crio.service" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }
+    - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
+    - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
+    - { dest: "/usr/local/lib/systemd/system/crio.service" }
+    - { dest: "/usr/local/share/bash-completion/completions/crio" }
+    - { dest: "/usr/local/share/bash-completion/completions/crio-status" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   tags: cri_o
 
