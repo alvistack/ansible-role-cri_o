@@ -61,8 +61,8 @@
     - { dest: "/etc/systemd/system" }
     - { dest: "/usr/lib/modules-load.d" }
     - { dest: "/usr/local/bin" }
-    - { dest: "/usr/local/share/containers/oci/hooks.d" }
-    - { dest: "/usr/local/share/oci-umount/oci-umount.d" }
+    - { dest: "/usr/share/containers/oci/hooks.d" }
+    - { dest: "/usr/share/oci-umount/oci-umount.d" }
     - { dest: "{{ cri_o_download.dest | dirname }}" }
   tags: cri_o
 
@@ -142,7 +142,7 @@
     - { dest: "/etc/systemd/system/crio-shutdown.service" }
     - { dest: "/etc/systemd/system/crio-wipe.service" }
     - { dest: "/etc/systemd/system/crio.service" }
-    - { dest: "/usr/local/share/oci-umount/oci-umount.d/crio-umount.conf" }
+    - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart
@@ -163,7 +163,7 @@
     - { dest: "/etc/systemd/system/crio.service" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }
-    - { dest: "/usr/local/share/oci-umount/oci-umount.d/crio-umount.conf" }
+    - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   tags: cri_o
 
 - name: flush handlers
