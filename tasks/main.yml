@@ -113,6 +113,9 @@
     set -o pipefail
     TMP_DIR="$(mktemp -d)" \
       && export GOPATH=$TMP_DIR \
+      && export PATH="$GOPATH/bin:$PATH" \
+      && cd $GOPATH \
+      && go get -u github.com/cpuguy83/go-md2man \
       && mkdir -p $GOPATH/src/github.com/cri-o/cri-o \
       && cd $GOPATH/src/github.com/cri-o/cri-o \
       && tar -zx -C . -f {{ cri_o_download.dest }} --strip-components=1 \
