@@ -56,13 +56,14 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
-    - { dest: "/etc/containers" }
     - { dest: "/etc/crio" }
-    - { dest: "/etc/systemd/system" }
+    - { dest: "/etc/default" }
     - { dest: "/usr/lib/modules-load.d" }
     - { dest: "/usr/local/bin" }
-    - { dest: "/usr/local/share/containers/oci/hooks.d" }
-    - { dest: "/usr/local/share/oci-umount/oci-umount.d" }
+    - { dest: "/usr/local/lib/systemd/system" }
+    - { dest: "/usr/local/share/bash-completion/completions" }
+    - { dest: "/usr/share/containers/oci/hooks.d" }
+    - { dest: "/usr/share/oci-umount/oci-umount.d" }
     - { dest: "{{ cri_o_download.dest | dirname }}" }
   tags: cri_o
 
@@ -112,15 +113,21 @@
     set -o pipefail
     TMP_DIR="$(mktemp -d)" \
       && export GOPATH=$TMP_DIR \
+      && export PATH="$GOPATH/bin:$PATH" \
+      && cd $GOPATH \
+      && go get -u github.com/cpuguy83/go-md2man \
       && mkdir -p $GOPATH/src/github.com/cri-o/cri-o \
       && cd $GOPATH/src/github.com/cri-o/cri-o \
       && tar -zx -C . -f {{ cri_o_download.dest }} --strip-components=1 \
       && make BUILDTAGS='apparmor seccomp selinux' \
       && make install \
+      && make install.systemd \
       && rm -rf $TMP_DIR
   args:
     executable: "/bin/bash"
   when: get_url_result is changed
+  register: result
+  until: result is succeeded
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart
@@ -134,13 +141,13 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
-    - { dest: "/etc/containers/registries.conf" }
-    - { dest: "/etc/crictl.yml" }
+    - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf" }
-    - { dest: "/etc/systemd/system/crio-shutdown.service" }
-    - { dest: "/etc/systemd/system/crio-wipe.service" }
-    - { dest: "/etc/systemd/system/crio.service" }
-    - { dest: "/usr/local/share/oci-umount/oci-umount.d/crio-umount.conf" }
+    - { dest: "/etc/default/crio" }
+    - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
+    - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
+    - { dest: "/usr/local/lib/systemd/system/crio.service" }
+    - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart
@@ -154,15 +161,16 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
-    - { dest: "/etc/containers/registries.conf" }
-    - { dest: "/etc/crictl.yml" }
+    - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf" }
-    - { dest: "/etc/systemd/system/crio-shutdown.service" }
-    - { dest: "/etc/systemd/system/crio-wipe.service" }
-    - { dest: "/etc/systemd/system/crio.service" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }
-    - { dest: "/usr/local/share/oci-umount/oci-umount.d/crio-umount.conf" }
+    - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
+    - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
+    - { dest: "/usr/local/lib/systemd/system/crio.service" }
+    - { dest: "/usr/local/share/bash-completion/completions/crio" }
+    - { dest: "/usr/local/share/bash-completion/completions/crio-status" }
+    - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   tags: cri_o
 
 - name: flush handlers

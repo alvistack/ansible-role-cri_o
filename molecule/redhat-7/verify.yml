@@ -25,9 +25,9 @@
       register: result
       changed_when: result is not succeeded
 
-    - name: crictl --runtime-endpoint unix:///var/run/crio/crio.sock version
+    - name: crictl version
       environment:
         PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-      command: crictl --runtime-endpoint unix:///var/run/crio/crio.sock version
+      command: crictl version
       register: result
       changed_when: result is not succeeded
