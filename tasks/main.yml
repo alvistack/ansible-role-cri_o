@@ -141,7 +141,6 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
-    - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/default/crio" }
     - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
@@ -161,7 +160,6 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
-    - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }
