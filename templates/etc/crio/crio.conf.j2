@@ -120,7 +120,7 @@ seccomp_profile = ""
 
 # Used to change the name of the default AppArmor profile of CRI-O. The default
 # profile name is "crio-default-" followed by the version string of CRI-O.
-apparmor_profile = "crio-default-1.17.0"
+apparmor_profile = "crio-default-{{ cri_o_version }}"
 
 # Cgroup management implementation used for the runtime.
 cgroup_manager = "{{ cri_o_cgroup_manager }}"
@@ -356,7 +356,7 @@ plugin_dirs = [
 [crio.metrics]
 
 # Globally enable or disable metrics support.
-enable_metrics = false
+enable_metrics = true
 
 # The port on which the metrics server will listen.
 metrics_port = 9090
