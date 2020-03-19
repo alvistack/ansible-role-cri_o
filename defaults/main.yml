@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # CRI-O version.
-cri_o_version: "v1.17.0"
+cri_o_version: "v1.17.1"
 
 # CRI-O download details.
 cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
