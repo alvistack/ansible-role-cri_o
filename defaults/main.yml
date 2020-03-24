@@ -20,6 +20,10 @@ cri_o_version: "v1.17.1"
 # CRI-O download details.
 cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
 
+# Used to change the name of the default AppArmor profile of CRI-O. The default
+# profile name is "crio-default-" followed by the version string of CRI-O.
+cri_o_apparmor_profile: "crio-default-1.17.1"
+
 # Cgroup management implementation used for the runtime.
 cri_o_cgroup_manager: "systemd"
 
