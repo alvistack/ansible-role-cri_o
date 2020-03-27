@@ -15,6 +15,10 @@
 # limitations under the License.
 
 _cri_o_download:
+  v1.17.2:
+    url: "https://github.com/cri-o/cri-o/archive/v1.17.2.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.2.tar.gz"
+    checksum: "sha1:b31461e9c3e9df6a0aa671c0ae10376d8564a513"
   v1.17.1:
     url: "https://github.com/cri-o/cri-o/archive/v1.17.1.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.1.tar.gz"
@@ -23,6 +27,10 @@ _cri_o_download:
     url: "https://github.com/cri-o/cri-o/archive/v1.17.0.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.0.tar.gz"
     checksum: "sha1:d3dcefa4416ffc1a99da47183bf87ffb737c338c"
+  v1.16.4:
+    url: "https://github.com/cri-o/cri-o/archive/v1.16.4.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.16.4.tar.gz"
+    checksum: "sha1:2e84a2565f13a339f2ab7e796212b5d744d72068"
   v1.16.3:
     url: "https://github.com/cri-o/cri-o/archive/v1.16.3.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.16.3.tar.gz"
