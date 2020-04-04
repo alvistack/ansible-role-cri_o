@@ -56,6 +56,7 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
+    - { dest: "/etc/cni/net.d" }
     - { dest: "/etc/crio" }
     - { dest: "/etc/crio/crio.conf.d" }
     - { dest: "/etc/default" }
@@ -107,28 +108,20 @@
   until: get_url_result is succeeded
   tags: cri_o
 
-- name: build package
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+- name: unarchive package
   shell: |
     set -o pipefail
+    cd /usr/local/bin
     TMP_DIR="$(mktemp -d)" \
-      && export GOPATH=$TMP_DIR \
-      && export PATH="$GOPATH/bin:$PATH" \
-      && cd $GOPATH \
-      && go get -u github.com/cpuguy83/go-md2man \
-      && mkdir -p $GOPATH/src/github.com/cri-o/cri-o \
-      && cd $GOPATH/src/github.com/cri-o/cri-o \
-      && tar -zx -C . -f {{ cri_o_download.dest }} --strip-components=1 \
-      && make BUILDTAGS='apparmor seccomp selinux' \
-      && make install \
-      && make install.systemd \
+      && tar -zx -C $TMP_DIR -f {{ cri_o_download.dest }} --strip-components=1 \
+      && chown root:root $TMP_DIR/bin/* \
+      && chmod 0755 $TMP_DIR/bin/* \
+      && mv $TMP_DIR/bin/crio-x86_64-static-musl crio \
+      && mv $TMP_DIR/bin/pinns pinns \
       && rm -rf $TMP_DIR
   args:
     executable: "/bin/bash"
   when: get_url_result is changed
-  register: result
-  until: result is succeeded
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart
@@ -142,11 +135,14 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
+    - { dest: "/etc/cni/net.d/10-crio-bridge.conf" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/default/crio" }
     - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
     - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
+    - { dest: "/usr/local/share/bash-completion/completions/crio" }
+    - { dest: "/usr/local/share/bash-completion/completions/crio-status" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
@@ -161,6 +157,7 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
+    - { dest: "/etc/cni/net.d/10-crio-bridge.conf" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }

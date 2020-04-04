@@ -16,22 +16,14 @@
 
 _cri_o_download:
   v1.17.2:
-    url: "https://github.com/cri-o/cri-o/archive/v1.17.2.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.2.tar.gz"
-    checksum: "sha1:b31461e9c3e9df6a0aa671c0ae10376d8564a513"
+    url: "https://github.com/cri-o/cri-o/releases/download/v1.17.2/crio-v1.17.2.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/crio-v1.17.2.tar.gz"
+    checksum: "sha1:320f23d7daec2098c4fb87781c5b3d4bc9fec4ca"
   v1.17.1:
-    url: "https://github.com/cri-o/cri-o/archive/v1.17.1.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.1.tar.gz"
-    checksum: "sha1:138b2eb7736f712e66786eff1973422ace8d825b"
+    url: "https://github.com/cri-o/cri-o/releases/download/v1.17.1/crio-v1.17.1.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/crio-v1.17.1.tar.gz"
+    checksum: "sha1:45d79517da093420a17673dbaad6fb3672833692"
   v1.17.0:
-    url: "https://github.com/cri-o/cri-o/archive/v1.17.0.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.0.tar.gz"
-    checksum: "sha1:d3dcefa4416ffc1a99da47183bf87ffb737c338c"
-  v1.16.4:
-    url: "https://github.com/cri-o/cri-o/archive/v1.16.4.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.16.4.tar.gz"
-    checksum: "sha1:2e84a2565f13a339f2ab7e796212b5d744d72068"
-  v1.16.3:
-    url: "https://github.com/cri-o/cri-o/archive/v1.16.3.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.16.3.tar.gz"
-    checksum: "sha1:1b77cc34441500580ae3ab89ac42358298138a68"
+    url: "https://github.com/cri-o/cri-o/releases/download/v1.17.0/crio-v1.17.0.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/crio-v1.17.0.tar.gz"
+    checksum: "sha1:c2764c2afdf1099c008c9cba1de15282ebec3ec8"
