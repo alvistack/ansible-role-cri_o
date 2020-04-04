@@ -118,6 +118,7 @@
       && chmod 0755 $TMP_DIR/bin/* \
       && mv $TMP_DIR/bin/crio-x86_64-static-musl crio \
       && mv $TMP_DIR/bin/pinns pinns \
+      && mv $TMP_DIR/completions/bash/crio* /usr/local/share/bash-completion/completions/ \
       && rm -rf $TMP_DIR
   args:
     executable: "/bin/bash"
@@ -142,8 +143,6 @@
     - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
     - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
-    - { dest: "/usr/local/share/bash-completion/completions/crio" }
-    - { dest: "/usr/local/share/bash-completion/completions/crio-status" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
