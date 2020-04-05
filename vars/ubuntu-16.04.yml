@@ -18,7 +18,6 @@ _apt:
   - { state: "latest", name: "bash-completion" }
   - { state: "latest", name: "btrfs-tools" }
   - { state: "latest", name: "conntrack" }
-  - { state: "latest", name: "gcc" }
   - { state: "latest", name: "iproute2" }
   - { state: "latest", name: "iptables" }
   - { state: "latest", name: "socat" }
