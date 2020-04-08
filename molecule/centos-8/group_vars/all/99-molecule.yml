@@ -14,9 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_apt:
-  - { state: "latest", name: "bash-completion" }
-  - { state: "latest", name: "conntrack" }
-  - { state: "latest", name: "iproute2" }
-  - { state: "latest", name: "iptables" }
-  - { state: "latest", name: "socat" }
+crictl_runtime_endpoint: "unix:///var/run/crio/crio.sock"
