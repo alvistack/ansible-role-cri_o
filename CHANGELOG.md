@@ -6,7 +6,7 @@
 
   - Upgrade minimal Molecule support to 3.0.2
   - Install from pre-build archive
-  - Support CentOS 8
+  - Support CentOS/RHEL 8
 
 ## 4.2.0 - 2020-02-23
 
