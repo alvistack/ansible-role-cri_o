@@ -15,6 +15,10 @@
 # limitations under the License.
 
 _cri_o_download:
+  v1.17.3:
+    url: "https://github.com/cri-o/cri-o/releases/download/v1.17.3/crio-v1.17.3.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/crio-v1.17.3.tar.gz"
+    checksum: "sha1:08c0a453548da2761e116065bd20300c2f978f9a"
   v1.17.2:
     url: "https://github.com/cri-o/cri-o/releases/download/v1.17.2/crio-v1.17.2.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/crio-v1.17.2.tar.gz"
