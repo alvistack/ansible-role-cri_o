@@ -14,13 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- hosts: all
-  remote_user: root
-  become: true
-  tasks:
-    - name: crio --version
-      environment:
-        PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-      command: crio --version
-      register: result
-      changed_when: result is not succeeded
+crictl_runtime_endpoint: "unix:///var/run/crio/crio.sock"
