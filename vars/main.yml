@@ -14,6 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+_cri_o_bin:
+  v1.17.3: "crio-x86_64-static-glibc"
+  v1.17.2: "crio-x86_64-static-glibc"
+  v1.17.1: "crio-x86_64-static-glibc"
+  v1.17.0: "crio-x86_64-static-glibc"
+
+_cri_o_apparmor_profile:
+  v1.17.3: "crio-default-1.17.3"
+  v1.17.2: "crio-default-1.17.2"
+  v1.17.1: "crio-default-1.17.1"
+  v1.17.0: "crio-default-1.17.0"
+
 _cri_o_download:
   v1.17.3:
     url: "https://github.com/cri-o/cri-o/releases/download/v1.17.3/crio-v1.17.3.tar.gz"
