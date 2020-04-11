@@ -115,7 +115,7 @@
       && tar -zx -C $TMP_DIR -f {{ cri_o_download.dest }} --strip-components=1 \
       && chown root:root $TMP_DIR/bin/* \
       && chmod 0755 $TMP_DIR/bin/* \
-      && mv $TMP_DIR/bin/crio-x86_64-static-musl crio \
+      && mv $TMP_DIR/bin/{{ cri_o_bin }} crio \
       && mv $TMP_DIR/bin/pinns pinns \
       && mv $TMP_DIR/completions/bash/crio* /usr/local/share/bash-completion/completions/ \
       && rm -rf $TMP_DIR
