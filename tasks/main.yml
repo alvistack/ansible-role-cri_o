@@ -124,7 +124,6 @@
   when: get_url_result is changed
   notify:
     - cri_o | systemctl daemon-reload
-    - cri_o | systemctl restart crio-wipe
     - cri_o | systemctl restart crio
   tags: cri_o
 
@@ -144,7 +143,6 @@
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
-    - cri_o | systemctl restart crio-wipe
     - cri_o | systemctl restart crio
   tags: cri_o
 
@@ -170,15 +168,6 @@
 
 - name: flush handlers
   meta: flush_handlers
-  tags: cri_o
-
-- name: start service
-  service:
-    name: "crio-wipe"
-    state: "started"
-    enabled: true
-  changed_when: false
-  ignore_errors: true
   tags: cri_o
 
 - name: start service
