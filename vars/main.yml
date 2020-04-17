@@ -16,10 +16,10 @@
 
 _cri_o_bin:
   v1.18.0-rc1: "crio-static"
-  v1.17.3: "crio-x86_64-static-musl"
-  v1.17.2: "crio-x86_64-static-musl"
-  v1.17.1: "crio-x86_64-static-musl"
-  v1.17.0: "crio-x86_64-static-musl"
+  v1.17.3: "crio-x86_64-static-glibc"
+  v1.17.2: "crio-x86_64-static-glibc"
+  v1.17.1: "crio-x86_64-static-glibc"
+  v1.17.0: "crio-x86_64-static-glibc"
 
 _cri_o_apparmor_profile:
   v1.18.0-rc1: "crio-default"
