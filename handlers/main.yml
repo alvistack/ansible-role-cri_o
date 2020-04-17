@@ -32,7 +32,18 @@
   changed_when: false
   ignore_errors: true
 
-- name: cri_o | systemctl restart
+- name: cri_o | systemctl restart crio-wipe
+  service:
+    name: "crio-wipe"
+    state: "restarted"
+    enabled: true
+  loop: "{{ ansible_play_hosts }}"
+  delegate_to: "{{ item }}"
+  run_once: true
+  changed_when: false
+  ignore_errors: true
+
+- name: cri_o | systemctl restart crio
   service:
     name: "crio"
     state: "restarted"
