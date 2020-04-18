@@ -174,7 +174,7 @@
   meta: flush_handlers
   tags: cri_o
 
-- name: start service
+- name: systemctl start crio
   service:
     name: "crio"
     state: "started"
