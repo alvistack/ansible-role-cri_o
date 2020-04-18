@@ -22,6 +22,12 @@
         name: python
 
     - include_role:
+        name: git
+
+    - include_role:
+        name: golang
+
+    - include_role:
         name: cni_plugins
 
     - include_role:

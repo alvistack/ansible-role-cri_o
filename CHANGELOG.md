@@ -9,9 +9,6 @@
   - Support Ubuntu 20.04
   - Remove Ubuntu 16.04 support
   - Upgrade minimal Molecule support to 3.0.2
-  - Install from pre-build archive
-  - Install bash completion
-  - Default binary with `crio-x86_64-static-musl`
 
 ## 4.2.0 - 2020-02-23
 
