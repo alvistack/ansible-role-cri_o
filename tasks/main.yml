@@ -170,10 +170,6 @@
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   tags: cri_o
 
-- name: flush handlers
-  meta: flush_handlers
-  tags: cri_o
-
 - name: systemctl start crio
   service:
     name: "crio"
@@ -181,4 +177,8 @@
     enabled: true
   changed_when: false
   ignore_errors: true
+  tags: cri_o
+
+- name: flush handlers
+  meta: flush_handlers
   tags: cri_o
