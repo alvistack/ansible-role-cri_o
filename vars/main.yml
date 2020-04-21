@@ -16,6 +16,7 @@
 
 _cri_o_apparmor_profile:
   v1.18.0-rc1: "crio-default"
+  v1.17.4: "crio-default-1.17.4"
   v1.17.3: "crio-default-1.17.3"
   v1.17.2: "crio-default-1.17.2"
   v1.17.1: "crio-default-1.17.1"
@@ -26,6 +27,10 @@ _cri_o_download:
     url: "https://github.com/cri-o/cri-o/archive/v1.18.0-rc1.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.18.0-rc1.tar.gz"
     checksum: "sha1:2728f98b15facabf5d4cf9c852cd3342cd56ebdf"
+  v1.17.4:
+    url: "https://github.com/cri-o/cri-o/archive/v1.17.4.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.4.tar.gz"
+    checksum: "sha1:d6aec9fd8a1a24f169d7310dcd44bb355bce2e5b"
   v1.17.3:
     url: "https://github.com/cri-o/cri-o/archive/v1.17.3.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.3.tar.gz"
