@@ -15,13 +15,10 @@
 # limitations under the License.
 
 # CRI-O version.
-cri_o_version: "v1.17.3"
+cri_o_version: "v1.18.0-rc1"
 
 # CRI-O download details.
 cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
-
-# CRI-O binary.
-cri_o_bin: "{{ _cri_o_bin[cri_o_version] }}"
 
 # Used to change the name of the default AppArmor profile of CRI-O. The default
 # profile name is "crio-default-" followed by the version string of CRI-O.

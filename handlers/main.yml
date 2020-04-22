@@ -14,23 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: cri_o | systemctl daemon-reload
-  systemd:
-    daemon_reload: true
-  changed_when: false
-  ignore_errors: true
-
-- name: cri_o | systemctl restart
-  service:
-    name: "crio"
-    state: "restarted"
-    enabled: true
-  loop: "{{ ansible_play_hosts }}"
-  delegate_to: "{{ item }}"
-  run_once: true
-  changed_when: false
-  ignore_errors: true
-
 - name: cri_o | systemctl restart systemd-modules-load
   service:
     name: "systemd-modules-load"
@@ -40,5 +23,22 @@
 
 - name: cri_o | sysctl --system
   command: sysctl --system
+  changed_when: false
+  ignore_errors: true
+
+- name: cri_o | systemctl daemon-reload
+  systemd:
+    daemon_reload: true
+  changed_when: false
+  ignore_errors: true
+
+- name: cri_o | systemctl restart crio
+  service:
+    name: "crio"
+    state: "restarted"
+    enabled: true
+  loop: "{{ ansible_play_hosts }}"
+  delegate_to: "{{ item }}"
+  run_once: true
   changed_when: false
   ignore_errors: true
