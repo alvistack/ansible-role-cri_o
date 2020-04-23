@@ -15,7 +15,7 @@
 # limitations under the License.
 
 _cri_o_apparmor_profile:
-  v1.18.0-rc1: "crio-default"
+  v1.18.0: "crio-default"
   v1.17.4: "crio-default-1.17.4"
   v1.17.3: "crio-default-1.17.3"
   v1.17.2: "crio-default-1.17.2"
@@ -23,10 +23,10 @@ _cri_o_apparmor_profile:
   v1.17.0: "crio-default-1.17.0"
 
 _cri_o_download:
-  v1.18.0-rc1:
-    url: "https://github.com/cri-o/cri-o/archive/v1.18.0-rc1.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.18.0-rc1.tar.gz"
-    checksum: "sha1:2728f98b15facabf5d4cf9c852cd3342cd56ebdf"
+  v1.18.0:
+    url: "https://github.com/cri-o/cri-o/archive/v1.18.0.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.18.0.tar.gz"
+    checksum: "sha1:e5a7bbf662e11f86d94718e28da3cf965d851b3c"
   v1.17.4:
     url: "https://github.com/cri-o/cri-o/archive/v1.17.4.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.4.tar.gz"
