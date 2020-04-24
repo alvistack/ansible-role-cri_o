@@ -214,7 +214,7 @@ read_only = false
 # Changes the verbosity of the logs based on the level it is set to. Options
 # are fatal, panic, error, warn, info, debug and trace. This option supports
 # live configuration reload.
-log_level = "info"
+log_level = "{{ cri_o_log_level }}"
 
 # Filter the log messages by the provided regular expression.
 # This option supports live configuration reload.
