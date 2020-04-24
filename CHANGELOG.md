@@ -5,6 +5,7 @@
 ### Major Changes
 
   - `molecule -s default` with delegated to localhost
+  - Change default log verbosity to `warn`
 
 ## 4.3.0 - 2020-04-22
 
