@@ -27,6 +27,11 @@ cri_o_apparmor_profile: "{{ _cri_o_apparmor_profile[cri_o_version] }}"
 # Cgroup management implementation used for the runtime.
 cri_o_cgroup_manager: "systemd"
 
+# Changes the verbosity of the logs based on the level it is set to. Options
+# are fatal, panic, error, warn, info, debug and trace. This option supports
+# live configuration reload.
+cri_o_log_level: "warn"
+
 # Kernel modules.
 cri_o_modprobe:
   - { state: "present", line: "br_netfilter" }
