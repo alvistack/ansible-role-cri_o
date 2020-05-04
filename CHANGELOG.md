@@ -4,6 +4,7 @@
 
 ### Major Changes
 
+  - Support Debian 10
   - `molecule -s default` with delegated to localhost
   - Change default log verbosity to `warn`
 
