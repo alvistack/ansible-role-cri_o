@@ -143,8 +143,6 @@
   loop:
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/default/crio" }
-    - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
-    - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
@@ -164,8 +162,6 @@
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }
     - { dest: "/usr/local/bin/pinns", mode: "0755" }
-    - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
-    - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   tags: cri_o
