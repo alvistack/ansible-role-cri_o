@@ -37,8 +37,15 @@
 # the kubelet. The log directory specified must be an absolute directory.
 log_dir = "/var/log/crio/pods"
 
-# Location for CRI-O to lay down the version file
+# Location for CRI-O to lay down the temporary version file.
+# It is used to check if crio wipe should wipe containers, which should
+# always happen on a node reboot
 version_file = "/var/run/crio/version"
+
+# Location for CRI-O to lay down the persistent version file.
+# It is used to check if crio wipe should wipe images, which should
+# only happen when CRI-O has been upgraded
+version_file_persist = "/var/lib/crio/version"
 
 # The crio.api table contains settings for the kubelet/gRPC interface.
 [crio.api]
@@ -89,7 +96,7 @@ grpc_max_recv_msg_size = 16777216
 
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
 # The name is matched against the runtimes map below.
-default_runtime = "runc"
+#default_runtime = "runc"
 
 # If true, the runtime will not use pivot_root, but instead use MS_MOVE.
 no_pivot = false
@@ -109,6 +116,12 @@ conmon_cgroup = "system.slice"
 # environment variables to conmon or the runtime.
 conmon_env = [
     "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+]
+
+# Additional environment variables to set for all the
+# containers. These are overridden if set in the
+# container image spec or in the container runtime configuration.
+default_env = [
 ]
 
 # If true, SELinux will be used for pod separation on the host.
@@ -271,6 +284,11 @@ pinns_path = ""
 #   state.
 
 
+[crio.runtime.runtimes.crun]
+runtime_path = ""
+runtime_type = "oci"
+runtime_root = "/run/crun"
+
 [crio.runtime.runtimes.runc]
 runtime_path = ""
 runtime_type = "oci"
@@ -308,7 +326,7 @@ global_auth_file = ""
 
 # The image used to instantiate infra containers.
 # This option supports live configuration reload.
-pause_image = "k8s.gcr.io/pause:3.1"
+pause_image = "k8s.gcr.io/pause:3.2"
 
 # The path to a file containing credentials specific for pulling the pause_image from
 # above. The file is similar to that of /var/lib/kubelet/config.json
