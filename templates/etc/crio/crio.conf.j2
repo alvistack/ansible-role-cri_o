@@ -289,11 +289,11 @@ pinns_path = ""
 runtime_path = ""
 runtime_type = "oci"
 runtime_root = "/run/runc"
-{% if cri_o_default_runtime == 'crun' %}
-[crio.runtime.runtimes.runc]
+{% elif cri_o_default_runtime == 'crun' %}
+[crio.runtime.runtimes.crun]
 runtime_path = ""
 runtime_type = "oci"
-runtime_root = "/run/runc"
+runtime_root = "/run/crun"
 {%- endif %}
 
 
