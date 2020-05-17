@@ -29,7 +29,7 @@ cri_o_default_runtime: "crun"
 cri_o_apparmor_profile: "{{ _cri_o_apparmor_profile[cri_o_version] }}"
 
 # Cgroup management implementation used for the runtime.
-cri_o_cgroup_manager: "systemd"
+cri_o_cgroup_manager: "{{ _cri_o_cgroup_manager }}"
 
 # Changes the verbosity of the logs based on the level it is set to. Options
 # are fatal, panic, error, warn, info, debug and trace. This option supports
