@@ -130,7 +130,7 @@ selinux = false
 # Path to the seccomp.json profile which is used as the default seccomp profile
 # for the runtime. If not specified, then the internal default seccomp profile
 # will be used. This option supports live configuration reload.
-seccomp_profile = ""
+seccomp_profile = "/usr/share/containers/seccomp.json"
 
 # Used to change the name of the default AppArmor profile of CRI-O. The default
 # profile name is "crio-default". This profile only takes effect if the user
