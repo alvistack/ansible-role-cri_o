@@ -22,14 +22,14 @@ cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
 
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
 # The name is matched against the runtimes map below.
-cri_o_default_runtime: "crun"
+cri_o_default_runtime: "runc"
 
 # Used to change the name of the default AppArmor profile of CRI-O. The default
 # profile name is "crio-default-" followed by the version string of CRI-O.
 cri_o_apparmor_profile: "{{ _cri_o_apparmor_profile[cri_o_version] }}"
 
 # Cgroup management implementation used for the runtime.
-cri_o_cgroup_manager: "{{ _cri_o_cgroup_manager }}"
+cri_o_cgroup_manager: "systemd"
 
 # Changes the verbosity of the logs based on the level it is set to. Options
 # are fatal, panic, error, warn, info, debug and trace. This option supports

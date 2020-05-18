@@ -143,7 +143,6 @@
     mode: "{{ item.mode | default('0644') }}"
   loop:
     - { dest: "/etc/cni/net.d/10-crio-bridge.conf" }
-    - { dest: "/etc/cni/net.d/99-loopback.conf" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/default/crio" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
@@ -162,7 +161,6 @@
     state: "{{ item.state | default('file') }}"
   loop:
     - { dest: "/etc/cni/net.d/10-crio-bridge.conf" }
-    - { dest: "/etc/cni/net.d/99-loopback.conf" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }

@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_cri_o_cgroup_manager: "systemd"
-
 _apt:
   - { state: "latest", name: "conntrack" }
   - { state: "latest", name: "gcc" }
