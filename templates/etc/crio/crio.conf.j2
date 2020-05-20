@@ -37,8 +37,15 @@
 # the kubelet. The log directory specified must be an absolute directory.
 log_dir = "/var/log/crio/pods"
 
-# Location for CRI-O to lay down the version file
+# Location for CRI-O to lay down the temporary version file.
+# It is used to check if crio wipe should wipe containers, which should
+# always happen on a node reboot
 version_file = "/var/run/crio/version"
+
+# Location for CRI-O to lay down the persistent version file.
+# It is used to check if crio wipe should wipe images, which should
+# only happen when CRI-O has been upgraded
+version_file_persist = "/var/lib/crio/version"
 
 # The crio.api table contains settings for the kubelet/gRPC interface.
 [crio.api]
@@ -89,7 +96,7 @@ grpc_max_recv_msg_size = 16777216
 
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
 # The name is matched against the runtimes map below.
-default_runtime = "runc"
+default_runtime = "{{ cri_o_default_runtime }}"
 
 # If true, the runtime will not use pivot_root, but instead use MS_MOVE.
 no_pivot = false
@@ -111,13 +118,19 @@ conmon_env = [
     "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
 ]
 
+# Additional environment variables to set for all the
+# containers. These are overridden if set in the
+# container image spec or in the container runtime configuration.
+default_env = [
+]
+
 # If true, SELinux will be used for pod separation on the host.
 selinux = false
 
 # Path to the seccomp.json profile which is used as the default seccomp profile
 # for the runtime. If not specified, then the internal default seccomp profile
 # will be used. This option supports live configuration reload.
-seccomp_profile = ""
+seccomp_profile = "/usr/share/containers/seccomp.json"
 
 # Used to change the name of the default AppArmor profile of CRI-O. The default
 # profile name is "crio-default". This profile only takes effect if the user
@@ -188,7 +201,7 @@ default_mounts = [
 #default_mounts_file = ""
 
 # Maximum number of processes allowed in a container.
-pids_limit = 1024
+pids_limit = 2048
 
 # Maximum sized allowed for the container log file. Negative numbers indicate
 # that no size limit is imposed. If it is positive, it must be >= 8192 to
@@ -240,7 +253,7 @@ ctr_stop_timeout = 30
 
 # manage_ns_lifecycle determines whether we pin and remove namespaces
 # and manage their lifecycle
-manage_ns_lifecycle = true
+manage_ns_lifecycle = {{ cri_o_manage_ns_lifecycle }}
 
 # The directory where the state of the managed namespaces gets tracked.
 # Only used when manage_ns_lifecycle is true.
@@ -271,10 +284,17 @@ pinns_path = ""
 #   state.
 
 
+{% if cri_o_default_runtime == 'runc' -%}
 [crio.runtime.runtimes.runc]
 runtime_path = ""
 runtime_type = "oci"
 runtime_root = "/run/runc"
+{% elif cri_o_default_runtime == 'crun' %}
+[crio.runtime.runtimes.crun]
+runtime_path = ""
+runtime_type = "oci"
+runtime_root = "/run/crun"
+{%- endif %}
 
 
 # Kata Containers is an OCI runtime, where containers are run inside lightweight
@@ -308,7 +328,7 @@ global_auth_file = ""
 
 # The image used to instantiate infra containers.
 # This option supports live configuration reload.
-pause_image = "k8s.gcr.io/pause:3.1"
+pause_image = "k8s.gcr.io/pause:3.2"
 
 # The path to a file containing credentials specific for pulling the pause_image from
 # above. The file is similar to that of /var/lib/kubelet/config.json
@@ -366,7 +386,7 @@ plugin_dirs = [
 [crio.metrics]
 
 # Globally enable or disable metrics support.
-enable_metrics = true
+enable_metrics = {{ cri_o_enable_metrics }}
 
 # The port on which the metrics server will listen.
 metrics_port = 9090
