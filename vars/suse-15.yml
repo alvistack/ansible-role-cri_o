@@ -15,9 +15,12 @@
 # limitations under the License.
 
 _zypper:
+  - { state: "latest", name: "autoconf" }
+  - { state: "latest", name: "automake" }
   - { state: "latest", name: "conntrack-tools" }
   - { state: "latest", name: "iproute" }
   - { state: "latest", name: "iptables" }
+  - { state: "latest", name: "libtool" }
   - { state: "latest", name: "make" }
-  - { state: "latest", name: "pkgconfig" }
+  - { state: "latest", name: "pkg-config" }
   - { state: "latest", name: "socat" }
