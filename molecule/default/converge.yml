@@ -31,10 +31,6 @@
       tags: nix
 
     - include_role:
-        name: golang
-      tags: golang
-
-    - include_role:
         name: cni_plugins
       tags: cni_plugins
 
@@ -47,8 +43,8 @@
       tags: containers_common
 
     - include_role:
-        name: runc
-      tags: runc
+        name: crun
+      tags: crun
 
     - include_role:
         name: conmon
