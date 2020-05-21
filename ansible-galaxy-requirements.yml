@@ -32,6 +32,10 @@ roles:
     src: https://github.com/alvistack/ansible-role-git
     version: develop
 
+  - name: nix
+    src: https://github.com/alvistack/ansible-role-nix
+    version: develop
+
   - name: golang
     src: https://github.com/alvistack/ansible-role-golang
     version: develop

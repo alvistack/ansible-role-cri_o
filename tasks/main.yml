@@ -113,15 +113,17 @@
   shell: |
     set -o pipefail
     TMP_DIR="$(mktemp -d)" \
-      && export GOPATH=$TMP_DIR \
-      && export PATH="$GOPATH/bin:$PATH" \
-      && cd $GOPATH \
-      && go get -u github.com/cpuguy83/go-md2man \
-      && mkdir -p $GOPATH/src/github.com/cri-o/cri-o \
-      && cd $GOPATH/src/github.com/cri-o/cri-o \
-      && tar -zx -C . -f {{ cri_o_download.dest }} --strip-components=1 \
-      && export BUILDTAGS="btrfs_noversion exclude_graphdriver_btrfs exclude_graphdriver_devicemapper apparmor seccomp selinux" \
-      && make install.bin \
+      && tar -zx -C $TMP_DIR -f {{ cri_o_download.dest }} --strip-components=1 \
+      && cd $TMP_DIR \
+      && git clone --branch master --depth 1 https://github.com/cri-o/cri-o.git cri-o-master \
+      && rm -rf nix \
+      && mv cri-o-master/nix . \
+      && rm -rf cri-o-master \
+      && nix build -f nix/ \
+      && chown -Rf root:root result*/bin/* \
+      && chmod 0755 result*/bin/* \
+      && for i in result*/bin/*; do mv "$i" "${i/-static/}"; done || true \
+      && mv result*/bin/* /usr/local/bin/ \
       && make install.systemd \
       && rm -rf $TMP_DIR
   args:
@@ -164,6 +166,7 @@
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }
+    - { dest: "/usr/local/bin/crio-status", mode: "0755" }
     - { dest: "/usr/local/bin/pinns", mode: "0755" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
