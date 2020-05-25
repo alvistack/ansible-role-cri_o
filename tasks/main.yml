@@ -107,30 +107,21 @@
   until: get_url_result is succeeded
   tags: cri_o
 
-- name: build package
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+- name: unarchive package
   shell: |
     set -o pipefail
+    cd /usr/local/bin
     TMP_DIR="$(mktemp -d)" \
       && tar -zx -C $TMP_DIR -f {{ cri_o_download.dest }} --strip-components=1 \
-      && cd $TMP_DIR \
-      && git clone --branch master --depth 1 https://github.com/cri-o/cri-o.git cri-o-master \
-      && rm -rf nix \
-      && mv cri-o-master/nix . \
-      && rm -rf cri-o-master \
-      && nix build -f nix/ \
-      && chown -Rf root:root result*/bin/* \
-      && chmod 0755 result*/bin/* \
-      && for i in result*/bin/*; do mv "$i" "${i/-static/}"; done || true \
-      && mv result*/bin/* /usr/local/bin/ \
-      && make install.systemd \
+      && rm -rf $TMP_DIR/bin/*musl* $TMP_DIR/bin/*status* \
+      && mv $TMP_DIR/bin/crio-* $TMP_DIR/bin/crio \
+      && chown root:root $TMP_DIR/bin/{crio,pinns} \
+      && chmod 0755 $TMP_DIR/bin/{crio,pinns} \
+      && mv $TMP_DIR/bin/{crio,pinns} . \
       && rm -rf $TMP_DIR
   args:
     executable: "/bin/bash"
   when: get_url_result is changed
-  register: result
-  until: result is succeeded
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio
@@ -166,7 +157,6 @@
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }
-    - { dest: "/usr/local/bin/crio-status", mode: "0755" }
     - { dest: "/usr/local/bin/pinns", mode: "0755" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }

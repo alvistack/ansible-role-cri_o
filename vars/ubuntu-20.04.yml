@@ -15,12 +15,7 @@
 # limitations under the License.
 
 _apt:
-  - { state: "latest", name: "autoconf" }
-  - { state: "latest", name: "automake" }
   - { state: "latest", name: "conntrack" }
   - { state: "latest", name: "iproute2" }
   - { state: "latest", name: "iptables" }
-  - { state: "latest", name: "libtool" }
-  - { state: "latest", name: "make" }
-  - { state: "latest", name: "pkg-config" }
   - { state: "latest", name: "socat" }
