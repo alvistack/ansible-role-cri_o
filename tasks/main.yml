@@ -113,11 +113,9 @@
     cd /usr/local/bin
     TMP_DIR="$(mktemp -d)" \
       && tar -zx -C $TMP_DIR -f {{ cri_o_download.dest }} --strip-components=1 \
-      && rm -rf $TMP_DIR/bin/*musl* $TMP_DIR/bin/*status* \
-      && mv $TMP_DIR/bin/crio-* $TMP_DIR/bin/crio \
-      && chown root:root $TMP_DIR/bin/{crio,pinns} \
-      && chmod 0755 $TMP_DIR/bin/{crio,pinns} \
-      && mv $TMP_DIR/bin/{crio,pinns} . \
+      && chown root:root $TMP_DIR/* \
+      && chmod 0755 $TMP_DIR/* \
+      && mv $TMP_DIR/* . \
       && rm -rf $TMP_DIR
   args:
     executable: "/bin/bash"
@@ -159,6 +157,7 @@
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }
+    - { dest: "/usr/local/bin/crio-status", mode: "0755" }
     - { dest: "/usr/local/bin/pinns", mode: "0755" }
     - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
     - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }

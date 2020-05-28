@@ -20,10 +20,10 @@ _cri_o_apparmor_profile:
 
 _cri_o_download:
   v1.18.1:
-    url: "https://github.com/cri-o/cri-o/releases/download/v1.18.1/crio-v1.18.1.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/crio-v1.18.1.tar.gz"
-    checksum: "sha1:dc06e68e4a95bcbcf24cc93107ee37ac28b2cc39"
+    url: "https://github.com/alvistack/cri-o/releases/download/v1.18.1/cri-o-v1.18.1-linux-amd64.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.18.1-linux-amd64.tar.gz"
+    checksum: "sha1:7510c2f613509e0a30a1a287563cd553e3ccd56b"
   v1.17.4:
-    url: "https://github.com/cri-o/cri-o/releases/download/v1.17.4/crio-v1.17.4.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/crio-v1.17.4.tar.gz"
-    checksum: "sha1:41380e7eb04f6c26210f43d1041dd5a992bf1fcc"
+    url: "https://github.com/alvistack/cri-o/releases/download/v1.17.4/cri-o-v1.17.4-linux-amd64.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.17.4-linux-amd64.tar.gz"
+    checksum: "sha1:7638a6713060eddab66e61403a38cf321fe7255b"
