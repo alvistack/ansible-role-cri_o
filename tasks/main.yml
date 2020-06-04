@@ -135,7 +135,8 @@
     crio-status complete bash > /etc/bash_completion.d/crio-status
   args:
     executable: "/bin/bash"
-  when: get_url_result is changed
+  changed_when: false
+  ignore_errors: true
   tags: cri_o
 
 - name: copy templates
