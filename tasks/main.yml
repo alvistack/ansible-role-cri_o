@@ -63,6 +63,7 @@
     - { dest: "/usr/lib/modules-load.d" }
     - { dest: "/usr/local/bin" }
     - { dest: "/usr/local/lib/systemd/system" }
+    - { dest: "/usr/local/share/bash-completion/completions" }
     - { dest: "/usr/share/containers/oci/hooks.d" }
     - { dest: "/usr/share/oci-umount/oci-umount.d" }
     - { dest: "{{ cri_o_download.dest | dirname }}" }
@@ -139,6 +140,8 @@
     - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
     - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
+    - { dest: "/usr/local/share/bash-completion/completions/crio" }
+    - { dest: "/usr/local/share/bash-completion/completions/crio-status" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
@@ -162,6 +165,8 @@
     - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
     - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
+    - { dest: "/usr/local/share/bash-completion/completions/crio" }
+    - { dest: "/usr/local/share/bash-completion/completions/crio-status" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   tags: cri_o
 
