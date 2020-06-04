@@ -22,26 +22,26 @@ cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
 
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
 # The name is matched against the runtimes map below.
-cri_o_default_runtime: "runc"
+cri_o_crio_runtime_default_runtime: "crun"
 
 # Used to change the name of the default AppArmor profile of CRI-O. The default
 # profile name is "crio-default-" followed by the version string of CRI-O.
-cri_o_apparmor_profile: "{{ _cri_o_apparmor_profile[cri_o_version] }}"
+cri_o_crio_runtime_apparmor_profile: "{{ _cri_o_crio_runtime_apparmor_profile[cri_o_version] }}"
 
 # Cgroup management implementation used for the runtime.
-cri_o_cgroup_manager: "systemd"
+cri_o_crio_runtime_cgroup_manager: "systemd"
 
 # Changes the verbosity of the logs based on the level it is set to. Options
 # are fatal, panic, error, warn, info, debug and trace. This option supports
 # live configuration reload.
-cri_o_log_level: "warn"
+cri_o_crio_runtime_log_level: "warn"
 
 # manage_ns_lifecycle determines whether we pin and remove namespaces
 # and manage their lifecycle
-cri_o_manage_ns_lifecycle: "true"
+cri_o_crio_runtime_manage_ns_lifecycle: "true"
 
 # Globally enable or disable metrics support.
-cri_o_enable_metrics: "true"
+cri_o_crio_metrics_enable_metrics: "true"
 
 # Kernel modules.
 cri_o_modprobe:

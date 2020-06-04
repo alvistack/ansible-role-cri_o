@@ -1,9 +1,15 @@
 # Ansible Role for CRI-O
 
-## 4.4.0 - TBC
+## 4.5.0 - TBC
 
 ### Major Changes
 
+## 4.4.0 - 2020-06-04
+
+### Major Changes
+
+  - Install bash completion
+  - Install with static binary archive
   - Support `crun`
   - Support Fedora 32
   - Support Debian 10
