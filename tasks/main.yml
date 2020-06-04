@@ -134,8 +134,6 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
-    - { dest: "/etc/bash_completion.d/crio" }
-    - { dest: "/etc/bash_completion.d/crio-status" }
     - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/default/crio" }
@@ -146,6 +144,20 @@
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio
+  tags: cri_o
+
+- name: install bash completion
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  shell: |
+    set -o pipefail
+    crio complete bash > /etc/bash_completion.d/crio
+    crio-status complete bash > /etc/bash_completion.d/crio-status
+  args:
+    executable: "/bin/bash"
+    creates: "/etc/bash_completion.d/crio"
+  register: result
+  changed_when: result is not succeeded
   tags: cri_o
 
 - name: prepare files
