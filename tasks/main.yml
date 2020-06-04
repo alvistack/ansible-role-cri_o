@@ -56,6 +56,7 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
+    - { dest: "/etc/bash_completion.d" }
     - { dest: "/etc/cni/net.d" }
     - { dest: "/etc/crio" }
     - { dest: "/etc/crio/crio.conf.d" }
@@ -63,7 +64,6 @@
     - { dest: "/usr/lib/modules-load.d" }
     - { dest: "/usr/local/bin" }
     - { dest: "/usr/local/lib/systemd/system" }
-    - { dest: "/usr/local/share/bash-completion/completions" }
     - { dest: "/usr/share/containers/oci/hooks.d" }
     - { dest: "/usr/share/oci-umount/oci-umount.d" }
     - { dest: "{{ cri_o_download.dest | dirname }}" }
@@ -134,14 +134,14 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
+    - { dest: "/etc/bash_completion.d/crio" }
+    - { dest: "/etc/bash_completion.d/crio-status" }
     - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/default/crio" }
     - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
     - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
-    - { dest: "/usr/local/share/bash-completion/completions/crio" }
-    - { dest: "/usr/local/share/bash-completion/completions/crio-status" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
@@ -156,6 +156,8 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
+    - { dest: "/etc/bash_completion.d/crio" }
+    - { dest: "/etc/bash_completion.d/crio-status" }
     - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
@@ -165,8 +167,6 @@
     - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
     - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
     - { dest: "/usr/local/lib/systemd/system/crio.service" }
-    - { dest: "/usr/local/share/bash-completion/completions/crio" }
-    - { dest: "/usr/local/share/bash-completion/completions/crio-status" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   tags: cri_o
 
