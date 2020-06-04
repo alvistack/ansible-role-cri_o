@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_cri_o_apparmor_profile:
+_cri_o_crio_runtime_apparmor_profile:
   v1.18.1: "crio-default"
   v1.17.4: "crio-default-1.17.4"
 

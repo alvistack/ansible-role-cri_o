@@ -96,7 +96,7 @@ grpc_max_recv_msg_size = 16777216
 
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
 # The name is matched against the runtimes map below.
-default_runtime = "{{ cri_o_default_runtime }}"
+default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 
 # If true, the runtime will not use pivot_root, but instead use MS_MOVE.
 no_pivot = false
@@ -137,10 +137,10 @@ seccomp_profile = "/usr/share/containers/seccomp.json"
 # does not specify a profile via the Kubernetes Pod's metadata annotation. If
 # the profile is set to "unconfined", then this equals to disabling AppArmor.
 # This option supports live configuration reload.
-apparmor_profile = "{{ cri_o_apparmor_profile }}"
+apparmor_profile = "{{ cri_o_crio_runtime_apparmor_profile }}"
 
 # Cgroup management implementation used for the runtime.
-cgroup_manager = "{{ cri_o_cgroup_manager }}"
+cgroup_manager = "{{ cri_o_crio_runtime_cgroup_manager }}"
 
 # List of default capabilities for containers. If it is empty or commented out,
 # only the capabilities defined in the containers json file by the user/kube
@@ -227,7 +227,7 @@ read_only = false
 # Changes the verbosity of the logs based on the level it is set to. Options
 # are fatal, panic, error, warn, info, debug and trace. This option supports
 # live configuration reload.
-log_level = "{{ cri_o_log_level }}"
+log_level = "{{ cri_o_crio_runtime_log_level }}"
 
 # Filter the log messages by the provided regular expression.
 # This option supports live configuration reload.
@@ -253,7 +253,7 @@ ctr_stop_timeout = 30
 
 # manage_ns_lifecycle determines whether we pin and remove namespaces
 # and manage their lifecycle
-manage_ns_lifecycle = {{ cri_o_manage_ns_lifecycle }}
+manage_ns_lifecycle = {{ cri_o_crio_runtime_manage_ns_lifecycle }}
 
 # The directory where the state of the managed namespaces gets tracked.
 # Only used when manage_ns_lifecycle is true.
@@ -284,12 +284,12 @@ pinns_path = ""
 #   state.
 
 
-{% if cri_o_default_runtime == 'runc' -%}
+{% if cri_o_crio_runtime_default_runtime == 'runc' -%}
 [crio.runtime.runtimes.runc]
 runtime_path = ""
 runtime_type = "oci"
 runtime_root = "/run/runc"
-{% elif cri_o_default_runtime == 'crun' %}
+{% elif cri_o_crio_runtime_default_runtime == 'crun' %}
 [crio.runtime.runtimes.crun]
 runtime_path = ""
 runtime_type = "oci"
@@ -386,7 +386,7 @@ plugin_dirs = [
 [crio.metrics]
 
 # Globally enable or disable metrics support.
-enable_metrics = {{ cri_o_enable_metrics }}
+enable_metrics = {{ cri_o_crio_metrics_enable_metrics }}
 
 # The port on which the metrics server will listen.
 metrics_port = 9090
