@@ -126,6 +126,18 @@
     - cri_o | systemctl restart crio
   tags: cri_o
 
+- name: install bash completion
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  shell: |
+    set -o pipefail
+    crio complete bash > /etc/bash_completion.d/crio
+    crio-status complete bash > /etc/bash_completion.d/crio-status
+  args:
+    executable: "/bin/bash"
+  when: get_url_result is changed
+  tags: cri_o
+
 - name: copy templates
   template:
     dest: "{{ item.dest }}"
@@ -144,20 +156,6 @@
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio
-  tags: cri_o
-
-- name: install bash completion
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-  shell: |
-    set -o pipefail
-    crio complete bash > /etc/bash_completion.d/crio
-    crio-status complete bash > /etc/bash_completion.d/crio-status
-  args:
-    executable: "/bin/bash"
-    creates: "/etc/bash_completion.d/crio"
-  register: result
-  changed_when: result is not succeeded
   tags: cri_o
 
 - name: prepare files
