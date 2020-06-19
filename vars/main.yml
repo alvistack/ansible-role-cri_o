@@ -15,10 +15,15 @@
 # limitations under the License.
 
 _cri_o_crio_runtime_apparmor_profile:
+  v1.18.2: "crio-default"
   v1.18.1: "crio-default"
   v1.17.4: "crio-default-1.17.4"
 
 _cri_o_download:
+  v1.18.2:
+    url: "https://github.com/alvistack/cri-o/releases/download/v1.18.2/cri-o-v1.18.2-linux-amd64.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.18.2-linux-amd64.tar.gz"
+    checksum: "sha1:15e3d10cf25980c2237359aae58e876bf84fcf8b"
   v1.18.1:
     url: "https://github.com/alvistack/cri-o/releases/download/v1.18.1/cri-o-v1.18.1-linux-amd64.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.18.1-linux-amd64.tar.gz"
