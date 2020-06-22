@@ -22,7 +22,14 @@ cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
 
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
 # The name is matched against the runtimes map below.
-cri_o_crio_runtime_default_runtime: "crun"
+cri_o_crio_runtime_default_runtime: >-
+  {%- set _params = '' -%}
+  {%- if "{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version | lower }}" == "redhat-7" -%}
+  {%-   set _params = 'runc' -%}
+  {%- else -%}
+  {%-   set _params = 'crun' -%}
+  {%- endif -%}
+  {{ _params }}
 
 # Used to change the name of the default AppArmor profile of CRI-O. The default
 # profile name is "crio-default-" followed by the version string of CRI-O.
