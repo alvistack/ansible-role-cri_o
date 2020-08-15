@@ -75,6 +75,7 @@
     line: "{{ item.line }}"
     regexp: "{{ item.regexp | default('^' + item.line | regex_escape() + '$') }}"
     state: "{{ item.state | default('present') }}"
+    mode: "0644"
     insertafter: "EOF"
     create: true
   loop: "{{ cri_o_modprobe }}"
