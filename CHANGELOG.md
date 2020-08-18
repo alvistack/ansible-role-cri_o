@@ -4,6 +4,7 @@
 
 ### Major Changes
 
+  - Upgrade Travis CI test as Ubuntu Focal based
   - Upgrade minimal Ansible support to 2.10.0
   - Disable IPv6 with `sysctl`
   - Support openSUSE Leap 15.2
