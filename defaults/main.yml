@@ -45,8 +45,8 @@ cri_o_crio_metrics_enable_metrics: "true"
 
 # Kernel modules.
 cri_o_modprobe:
-  - { state: "present", line: "br_netfilter" }
-  - { state: "present", line: "overlay" }
+  - { state: "present", option: "br_netfilter" }
+  - { state: "present", option: "overlay" }
 
 # Entries for sysctl.
 cri_o_sysctl:

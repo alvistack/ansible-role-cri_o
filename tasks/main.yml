@@ -70,13 +70,13 @@
   tags: cri_o
 
 - name: tweak modeprobe entries
-  lineinfile:
+  ini_file:
+    option: "{{ item.option }}"
+    state: "{{ item.state }}"
     path: "/usr/lib/modules-load.d/crio.conf"
-    line: "{{ item.line }}"
-    regexp: "{{ item.regexp | default('^' + item.line | regex_escape() + '$') }}"
-    state: "{{ item.state | default('present') }}"
-    insertafter: "EOF"
-    create: true
+    section: ""
+    mode: "0644"
+    allow_no_value: true
   loop: "{{ cri_o_modprobe }}"
   notify:
     - cri_o | systemctl restart systemd-modules-load
@@ -84,10 +84,10 @@
 
 - name: tweak sysctl entries
   sysctl:
-    sysctl_file: "/etc/sysctl.conf"
     name: "{{ item.name }}"
     value: "{{ item.value }}"
-    state: "{{ item.state | default('present') }}"
+    state: "{{ item.state }}"
+    sysctl_file: "/etc/sysctl.conf"
     reload: false
   loop: "{{ cri_o_sysctl }}"
   notify:
@@ -101,6 +101,7 @@
     url: "{{ item.url }}"
     dest: "{{ item.dest }}"
     checksum: "{{ item.checksum }}"
+    mode: "{{ item.mode | default('0644') }}"
     timeout: 300
   loop:
     - "{{ cri_o_download }}"
