@@ -80,7 +80,7 @@
     allow_no_value: true
   loop: "{{ cri_o_modprobe }}"
   notify:
-    - cri_o | systemctl restart systemd-modules-load
+    - cri_o | systemctl restart systemd-modules-load.service
   tags: cri_o
 
 - name: tweak sysctl entries
@@ -125,7 +125,7 @@
   when: get_url_result is changed
   notify:
     - cri_o | systemctl daemon-reload
-    - cri_o | systemctl restart crio
+    - cri_o | systemctl restart crio.service
   tags: cri_o
 
 - name: install bash completion
@@ -158,7 +158,7 @@
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
-    - cri_o | systemctl restart crio
+    - cri_o | systemctl restart crio.service
   tags: cri_o
 
 - name: prepare files
@@ -186,27 +186,27 @@
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   tags: cri_o
 
-- name: systemctl start crio
+- name: systemctl start crio.service
   service:
-    name: "crio"
+    name: "crio.service"
     state: "started"
     enabled: true
   changed_when: false
   ignore_errors: true
   tags: cri_o
 
-- name: systemctl start crio-wipe
+- name: systemctl start crio-wipe.service
   service:
-    name: "crio-wipe"
+    name: "crio-wipe.service"
     state: "started"
     enabled: true
   changed_when: false
   ignore_errors: true
   tags: cri_o
 
-- name: systemctl start crio-shutdown
+- name: systemctl start crio-shutdown.service
   service:
-    name: "crio-shutdown"
+    name: "crio-shutdown.service"
     state: "started"
     enabled: true
   changed_when: false
