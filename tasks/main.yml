@@ -61,9 +61,10 @@
     - { dest: "/etc/crio" }
     - { dest: "/etc/crio/crio.conf.d" }
     - { dest: "/etc/default" }
+    - { dest: "/lib/systemd/system" }
+    - { dest: "/lib/systemd/system/crio.service.d" }
     - { dest: "/usr/lib/modules-load.d" }
     - { dest: "/usr/local/bin" }
-    - { dest: "/usr/local/lib/systemd/system" }
     - { dest: "/usr/share/containers/oci/hooks.d" }
     - { dest: "/usr/share/oci-umount/oci-umount.d" }
     - { dest: "{{ cri_o_download.dest | dirname }}" }
@@ -79,7 +80,7 @@
     allow_no_value: true
   loop: "{{ cri_o_modprobe }}"
   notify:
-    - cri_o | systemctl restart systemd-modules-load
+    - cri_o | systemctl restart systemd-modules-load.service
   tags: cri_o
 
 - name: tweak sysctl entries
@@ -124,7 +125,7 @@
   when: get_url_result is changed
   notify:
     - cri_o | systemctl daemon-reload
-    - cri_o | systemctl restart crio
+    - cri_o | systemctl restart crio.service
   tags: cri_o
 
 - name: install bash completion
@@ -151,13 +152,13 @@
     - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/default/crio" }
-    - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
-    - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
-    - { dest: "/usr/local/lib/systemd/system/crio.service" }
+    - { dest: "/lib/systemd/system/crio-shutdown.service" }
+    - { dest: "/lib/systemd/system/crio-wipe.service" }
+    - { dest: "/lib/systemd/system/crio.service" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
-    - cri_o | systemctl restart crio
+    - cri_o | systemctl restart crio.service
   tags: cri_o
 
 - name: prepare files
@@ -172,19 +173,40 @@
     - { dest: "/etc/bash_completion.d/crio-status" }
     - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
     - { dest: "/etc/crio/crio.conf" }
+    - { dest: "/lib/systemd/system/crio-shutdown.service" }
+    - { dest: "/lib/systemd/system/crio-wipe.service" }
+    - { dest: "/lib/systemd/system/crio.service" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
     - { dest: "/usr/local/bin/crio", mode: "0755" }
     - { dest: "/usr/local/bin/crio-status", mode: "0755" }
     - { dest: "/usr/local/bin/pinns", mode: "0755" }
-    - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service" }
-    - { dest: "/usr/local/lib/systemd/system/crio-wipe.service" }
-    - { dest: "/usr/local/lib/systemd/system/crio.service" }
+    - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service", state: "absent" }
+    - { dest: "/usr/local/lib/systemd/system/crio-wipe.service", state: "absent" }
+    - { dest: "/usr/local/lib/systemd/system/crio.service", state: "absent" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   tags: cri_o
 
-- name: systemctl start crio
+- name: systemctl start crio.service
   service:
-    name: "crio"
+    name: "crio.service"
+    state: "started"
+    enabled: true
+  changed_when: false
+  ignore_errors: true
+  tags: cri_o
+
+- name: systemctl start crio-wipe.service
+  service:
+    name: "crio-wipe.service"
+    state: "started"
+    enabled: true
+  changed_when: false
+  ignore_errors: true
+  tags: cri_o
+
+- name: systemctl start crio-shutdown.service
+  service:
+    name: "crio-shutdown.service"
     state: "started"
     enabled: true
   changed_when: false

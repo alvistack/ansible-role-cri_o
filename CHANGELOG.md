@@ -1,12 +1,16 @@
 # Ansible Role for CRI-O
 
-## 4.5.0 - TBC
+## 4.6.0 - TBC
 
 ### Major Changes
 
+## 4.5.0 - 2020-08-26
+
+### Major Changes
+
+  - Shutdown CRI-O containers before shutting down the system
   - Upgrade Travis CI test as Ubuntu Focal based
   - Upgrade minimal Ansible support to 2.10.0
-  - Disable IPv6 with `sysctl`
   - Support openSUSE Leap 15.2
   - Remove Ubuntu 19.10 support
 

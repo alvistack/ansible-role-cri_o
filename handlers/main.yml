@@ -14,9 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: cri_o | systemctl restart systemd-modules-load
+- name: cri_o | systemctl restart systemd-modules-load.service
   service:
-    name: "systemd-modules-load"
+    name: "systemd-modules-load.service"
     state: "restarted"
   changed_when: false
   ignore_errors: true
@@ -32,9 +32,9 @@
   changed_when: false
   ignore_errors: true
 
-- name: cri_o | systemctl restart crio
+- name: cri_o | systemctl restart crio.service
   service:
-    name: "crio"
+    name: "crio.service"
     state: "restarted"
     enabled: true
   loop: "{{ ansible_play_hosts }}"
