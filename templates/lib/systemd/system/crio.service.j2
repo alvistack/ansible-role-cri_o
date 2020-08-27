@@ -3,8 +3,9 @@
 [Unit]
 Description=Container Runtime Interface for OCI (CRI-O)
 Documentation=https://github.com/cri-o/cri-o
-Wants=network-online.target
 After=network-online.target
+Wants=network-online.target
+RequiresMountsFor=/var/lib/containers
 
 [Service]
 Type=notify

@@ -3,9 +3,9 @@
 [Unit]
 Description=CRI-O Auto Update Script
 Before=crio.service
-RequiresMountsFor=/var/lib/containers
 
 [Service]
+Type=oneshot
 EnvironmentFile=-/etc/default/crio
 ExecStart=/usr/local/bin/crio \
           $CRIO_CONFIG_OPTIONS \
@@ -15,7 +15,5 @@ ExecStart=/usr/local/bin/crio \
           $CRIO_METRICS_OPTIONS \
           wipe
 
-Type=oneshot
-
 [Install]
-WantedBy=multi-user.target
+WantedBy=multi-user.target crio.service
