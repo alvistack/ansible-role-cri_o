@@ -195,6 +195,24 @@
   ignore_errors: true
   tags: cri_o
 
+- name: systemctl start crio-wipe.service
+  service:
+    name: "crio-wipe.service"
+    state: "started"
+    enabled: true
+  changed_when: false
+  ignore_errors: true
+  tags: cri_o
+
+- name: systemctl start crio-shutdown.service
+  service:
+    name: "crio-shutdown.service"
+    state: "started"
+    enabled: true
+  changed_when: false
+  ignore_errors: true
+  tags: cri_o
+
 - name: flush handlers
   meta: flush_handlers
   tags: cri_o

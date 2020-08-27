@@ -3,6 +3,7 @@
 [Unit]
 Description=CRI-O Auto Update Script
 Before=crio.service
+Wants=crio.service
 
 [Service]
 Type=oneshot
@@ -16,4 +17,4 @@ ExecStart=/usr/local/bin/crio \
           wipe
 
 [Install]
-WantedBy=multi-user.target crio.service
+WantedBy=multi-user.target
