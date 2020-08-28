@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # CRI-O version.
-cri_o_version: "v1.18.3"
+cri_o_version: "v1.19.0-rc.1"
 
 # CRI-O download details.
 cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
@@ -26,7 +26,7 @@ cri_o_crio_runtime_default_runtime: "crun"
 
 # Used to change the name of the default AppArmor profile of CRI-O. The default
 # profile name is "crio-default-" followed by the version string of CRI-O.
-cri_o_crio_runtime_apparmor_profile: "{{ _cri_o_crio_runtime_apparmor_profile[cri_o_version] }}"
+cri_o_crio_runtime_apparmor_profile: "crio-default"
 
 # Cgroup management implementation used for the runtime.
 cri_o_crio_runtime_cgroup_manager: "systemd"
