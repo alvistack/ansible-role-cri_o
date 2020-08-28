@@ -8,8 +8,7 @@ Wants=crio.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/bin/rm -f /var/lib/crio/crio.shutdown
-ExecStop=/usr/bin/env bash -c "/usr/bin/mkdir /var/lib/crio; /usr/bin/touch /var/lib/crio/crio.shutdown"
+ExecStop=/usr/local/bin/crictl rm -af
 
 [Install]
 WantedBy=multi-user.target
