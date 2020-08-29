@@ -4,6 +4,7 @@
 Description=CRI-O Auto Update Script
 Before=crio.service
 Wants=crio.service
+RequiresMountsFor=/var/lib/containers
 
 [Service]
 Type=oneshot
