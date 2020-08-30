@@ -20,6 +20,10 @@ cri_o_version: "v1.19.0-rc.1"
 # CRI-O download details.
 cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
 
+# Storage driver used to manage the storage of images and containers. Please
+# refer to containers-storage.conf(5) to see all available storage drivers.
+cri_o_crio_storage_driver: "overlay"
+
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
 # The name is matched against the runtimes map below.
 cri_o_crio_runtime_default_runtime: "crun"
