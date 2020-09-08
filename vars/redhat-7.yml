@@ -19,5 +19,4 @@ _yum:
   - { state: "latest", name: "conntrack-tools" }
   - { state: "latest", name: "iproute" }
   - { state: "latest", name: "iptables" }
-  - { state: "latest", name: "procps-ng" }
   - { state: "latest", name: "socat" }
