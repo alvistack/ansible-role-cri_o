@@ -22,3 +22,11 @@
   register: result
   until: result is succeeded
   tags: cri_o
+
+- name: apt-get install procps
+  apt:
+    name: "procps"
+    state: "present"
+  register: result
+  until: result is succeeded
+  tags: cri_o

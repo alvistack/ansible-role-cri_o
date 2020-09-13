@@ -24,3 +24,13 @@
   register: result
   until: result is succeeded
   tags: cri_o
+
+- name: zypper install procps
+  vars:
+    ansible_python_interpreter: "python3"
+  zypper:
+    name: "procps"
+    state: "present"
+  register: result
+  until: result is succeeded
+  tags: cri_o

@@ -22,3 +22,11 @@
   register: result
   until: result is succeeded
   tags: cri_o
+
+- name: yum install procps-ng
+  yum:
+    name: "procps-ng"
+    state: "present"
+  register: result
+  until: result is succeeded
+  tags: cri_o
