@@ -15,6 +15,10 @@
 # limitations under the License.
 
 _cri_o_download:
+  v1.19.0:
+    url: "https://github.com/alvistack/cri-o-cri-o/releases/download/v1.19.0/cri-o-v1.19.0-linux-amd64.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.19.0-linux-amd64.tar.gz"
+    checksum: "sha1:81e05712744a2dc66222e1d6a77f5f8886daac73"
   v1.19.0-rc.1:
     url: "https://github.com/alvistack/cri-o-cri-o/releases/download/v1.19.0-rc.1/cri-o-v1.19.0-rc.1-linux-amd64.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.19.0-rc.1-linux-amd64.tar.gz"
