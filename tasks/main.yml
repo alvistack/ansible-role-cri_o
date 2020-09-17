@@ -184,6 +184,9 @@
     - { dest: "/usr/local/lib/systemd/system/crio-wipe.service", state: "absent" }
     - { dest: "/usr/local/lib/systemd/system/crio.service", state: "absent" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
+  notify:
+    - cri_o | systemctl daemon-reload
+    - cri_o | systemctl restart crio.service
   tags: cri_o
 
 - name: systemctl start crio.service
