@@ -16,7 +16,6 @@
 
 - name: include default variables
   include_vars: "../vars/main.yml"
-  tags: cri_o
 
 - name: include release specific variables
   include_vars: "{{ lookup('first_found', _params) }}"
@@ -31,7 +30,6 @@
       paths:
         - "../vars"
   ignore_errors: true
-  tags: cri_o
 
 - name: include release specific tasks
   include_tasks: "{{ lookup('first_found', _params) }}"
@@ -46,7 +44,6 @@
       paths:
         - "."
   ignore_errors: true
-  tags: cri_o
 
 - name: prepare directories
   file:
@@ -68,7 +65,6 @@
     - { dest: "/usr/share/containers/oci/hooks.d" }
     - { dest: "/usr/share/oci-umount/oci-umount.d" }
     - { dest: "{{ cri_o_download.dest | dirname }}" }
-  tags: cri_o
 
 - name: tweak modeprobe entries
   ini_file:
@@ -81,7 +77,6 @@
   loop: "{{ cri_o_modprobe }}"
   notify:
     - cri_o | systemctl restart systemd-modules-load.service
-  tags: cri_o
 
 - name: tweak sysctl entries
   sysctl:
@@ -93,7 +88,6 @@
   loop: "{{ cri_o_sysctl }}"
   notify:
     - cri_o | sysctl --system
-  tags: cri_o
 
 - name: download archive
   vars:
@@ -108,7 +102,6 @@
     - "{{ cri_o_download }}"
   register: get_url_result
   until: get_url_result is succeeded
-  tags: cri_o
 
 - name: unarchive package
   shell: |
@@ -126,7 +119,6 @@
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service
-  tags: cri_o
 
 - name: install bash completion
   environment:
@@ -139,7 +131,6 @@
     executable: "/bin/bash"
   changed_when: false
   ignore_errors: true
-  tags: cri_o
 
 - name: copy templates
   template:
@@ -159,7 +150,6 @@
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service
-  tags: cri_o
 
 - name: prepare files
   file:
@@ -187,7 +177,6 @@
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service
-  tags: cri_o
 
 - name: systemctl start crio.service
   service:
@@ -196,7 +185,6 @@
     enabled: true
   changed_when: false
   ignore_errors: true
-  tags: cri_o
 
 - name: systemctl start crio-wipe.service
   service:
@@ -205,7 +193,6 @@
     enabled: true
   changed_when: false
   ignore_errors: true
-  tags: cri_o
 
 - name: systemctl start crio-shutdown.service
   service:
@@ -214,8 +201,6 @@
     enabled: true
   changed_when: false
   ignore_errors: true
-  tags: cri_o
 
 - name: flush handlers
   meta: flush_handlers
-  tags: cri_o
