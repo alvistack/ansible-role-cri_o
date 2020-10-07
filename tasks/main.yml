@@ -178,6 +178,9 @@
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service
 
+- name: flush handlers
+  meta: flush_handlers
+
 - name: systemctl start crio.service
   service:
     name: "crio.service"
@@ -201,6 +204,3 @@
     enabled: true
   changed_when: false
   ignore_errors: true
-
-- name: flush handlers
-  meta: flush_handlers
