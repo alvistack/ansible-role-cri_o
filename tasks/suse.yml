@@ -23,7 +23,6 @@
   loop: "{{ _zypper }}"
   register: result
   until: result is succeeded
-  tags: cri_o
 
 - name: zypper install procps
   vars:
@@ -33,4 +32,3 @@
     state: "present"
   register: result
   until: result is succeeded
-  tags: cri_o

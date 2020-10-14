@@ -3,9 +3,8 @@
 [Unit]
 Description=Container Runtime Interface for OCI (CRI-O)
 Documentation=https://github.com/cri-o/cri-o
-After=network-online.target remote-fs.target
-Wants=network-online.target remote-fs.target
-RequiresMountsFor=/var/lib/containers
+After=network-online.target local-fs.target remote-fs.target time-sync.target
+Wants=network-online.target local-fs.target remote-fs.target time-sync.target
 
 [Service]
 Type=notify
