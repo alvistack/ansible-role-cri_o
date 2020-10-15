@@ -15,19 +15,19 @@
 # limitations under the License.
 
 _cri_o_download:
-  v1.19.0:
+  "v1.19.0":
     url: "https://github.com/alvistack/cri-o-cri-o/releases/download/v1.19.0/cri-o-v1.19.0-linux-amd64.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.19.0-linux-amd64.tar.gz"
     checksum: "sha1:81e05712744a2dc66222e1d6a77f5f8886daac73"
-  v1.18.3:
+  "v1.18.3":
     url: "https://github.com/alvistack/cri-o-cri-o/releases/download/v1.18.3/cri-o-v1.18.3-linux-amd64.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.18.3-linux-amd64.tar.gz"
     checksum: "sha1:ed595cf51cb946b8e888955446c6d96a6f84e6a9"
-  v1.18.2:
+  "v1.18.2":
     url: "https://github.com/alvistack/cri-o-cri-o/releases/download/v1.18.2/cri-o-v1.18.2-linux-amd64.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.18.2-linux-amd64.tar.gz"
     checksum: "sha1:8d35f8d2e52a22dc9bd6ab1e854f080e55b745cb"
-  v1.18.1:
+  "v1.18.1":
     url: "https://github.com/alvistack/cri-o-cri-o/releases/download/v1.18.1/cri-o-v1.18.1-linux-amd64.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.18.1-linux-amd64.tar.gz"
     checksum: "sha1:28027f8d320e71cfb358028706136f012f85cc5a"
