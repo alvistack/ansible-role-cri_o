@@ -4,6 +4,7 @@
 
 ### Major Changes
 
+  - Support Ubuntu 20.10
   - Remove redundant tags from tasks
   - Bugfix graceful shutdown deadlock due to systemd dependencies
 
