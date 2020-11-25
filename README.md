@@ -1,6 +1,6 @@
 # Ansible Role for CRI-O
 
-[![Travis](https://img.shields.io/travis/com/alvistack/ansible-role-cri_o.svg)](https://travis-ci.com/alvistack/ansible-role-cri_o)
+[![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/ansible-role-cri_o/master)](https://gitlab.com/alvistack/ansible-role-cri_o/-/pipelines)
 [![GitHub release](https://img.shields.io/github/release/alvistack/ansible-role-cri_o.svg)](https://github.com/alvistack/ansible-role-cri_o/releases)
 [![GitHub license](https://img.shields.io/github/license/alvistack/ansible-role-cri_o.svg)](https://github.com/alvistack/ansible-role-cri_o/blob/master/LICENSE)
 [![Ansible Role](https://img.shields.io/badge/galaxy-alvistack.cri_o-blue.svg)](https://galaxy.ansible.com/alvistack/cri_o)
@@ -13,11 +13,11 @@ This role require Ansible 2.10 or higher.
 
 This role was designed for:
 
-  - Ubuntu 18.04/20.04
+  - Ubuntu 18.04/20.04/20.10
   - RHEL/CentOS 7/8
   - openSUSE Leap 15.2
   - Debian 10
-  - Fedora 32
+  - Fedora 33
 
 ## Role Variables
 
