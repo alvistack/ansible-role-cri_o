@@ -19,6 +19,10 @@ _cri_o_download:
     url: "https://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.0/cri-o-v1.20.0-linux-amd64.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.20.0-linux-amd64.tar.gz"
     checksum: "sha1:b7294287238d0c0558933be642ad9ec1c497325e"
+  "v1.19.1":
+    url: "https://github.com/alvistack/cri-o-cri-o/releases/download/v1.19.1/cri-o-v1.19.1-linux-amd64.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.19.1-linux-amd64.tar.gz"
+    checksum: "sha1:0f89927dc916fd16f2ed52609eb9aa82ff602fa6"
   "v1.19.0":
     url: "https://github.com/alvistack/cri-o-cri-o/releases/download/v1.19.0/cri-o-v1.19.0-linux-amd64.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/cri-o-v1.19.0-linux-amd64.tar.gz"
