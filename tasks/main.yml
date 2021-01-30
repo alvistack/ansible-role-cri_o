@@ -65,6 +65,40 @@
     - { dest: "/usr/share/containers/oci/hooks.d" }
     - { dest: "/usr/share/oci-umount/oci-umount.d" }
     - { dest: "{{ cri_o_download.dest | dirname }}" }
+  register: file_result
+
+- name: download archive
+  vars:
+    ansible_python_interpreter: "python3"
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    checksum: "{{ item.checksum }}"
+    mode: "{{ item.mode | default('0644') }}"
+    timeout: 300
+  loop:
+    - "{{ cri_o_download }}"
+  when: file_result is changed
+  register: get_url_result
+  until: get_url_result is succeeded
+
+- name: unarchive package
+  shell: |
+    set -euo pipefail
+    exec &> >(tee -a {{ cri_o_download.dest }}.log)
+    cd /usr/local/bin
+    TMP_DIR="$(mktemp -d)" \
+      && tar -zx -C $TMP_DIR -f {{ cri_o_download.dest }} --strip-components=1 \
+      && chown root:root $TMP_DIR/* \
+      && chmod 0755 $TMP_DIR/* \
+      && mv $TMP_DIR/* . \
+      && rm -rf $TMP_DIR
+  args:
+    executable: "/bin/bash"
+    creates: "{{ cri_o_download.dest }}.log"
+  notify:
+    - cri_o | systemctl daemon-reload
+    - cri_o | systemctl restart crio.service
 
 - name: tweak modeprobe entries
   ini_file:
@@ -88,37 +122,6 @@
   loop: "{{ cri_o_sysctl }}"
   notify:
     - cri_o | sysctl --system
-
-- name: download archive
-  vars:
-    ansible_python_interpreter: "python3"
-  get_url:
-    url: "{{ item.url }}"
-    dest: "{{ item.dest }}"
-    checksum: "{{ item.checksum }}"
-    mode: "{{ item.mode | default('0644') }}"
-    timeout: 300
-  loop:
-    - "{{ cri_o_download }}"
-  register: get_url_result
-  until: get_url_result is succeeded
-
-- name: unarchive package
-  shell: |
-    set -euo pipefail
-    cd /usr/local/bin
-    TMP_DIR="$(mktemp -d)" \
-      && tar -zx -C $TMP_DIR -f {{ cri_o_download.dest }} --strip-components=1 \
-      && chown root:root $TMP_DIR/* \
-      && chmod 0755 $TMP_DIR/* \
-      && mv $TMP_DIR/* . \
-      && rm -rf $TMP_DIR
-  args:
-    executable: "/bin/bash"
-  when: get_url_result is changed
-  notify:
-    - cri_o | systemctl daemon-reload
-    - cri_o | systemctl restart crio.service
 
 - name: install bash completion
   environment:
