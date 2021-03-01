@@ -23,12 +23,3 @@
   loop: "{{ _zypper }}"
   register: result
   until: result is succeeded
-
-- name: zypper install procps
-  vars:
-    ansible_python_interpreter: "python3"
-  zypper:
-    name: "procps"
-    state: "present"
-  register: result
-  until: result is succeeded

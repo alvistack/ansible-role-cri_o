@@ -20,4 +20,3 @@ _apt:
   - { state: "latest", name: "iproute2" }
   - { state: "latest", name: "iptables" }
   - { state: "latest", name: "socat" }
-  - { state: "latest", name: "tar" }

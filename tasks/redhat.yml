@@ -14,24 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: yum install python3-libselinux
-  yum:
-    name: "python3-libselinux"
-    state: "present"
-  register: result
-  until: result is succeeded
-
 - name: yum install
   yum:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
   loop: "{{ _yum }}"
-  register: result
-  until: result is succeeded
-
-- name: yum install procps-ng
-  yum:
-    name: "procps-ng"
-    state: "present"
   register: result
   until: result is succeeded
