@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-crictl_version: "v1.20.0"
-
-cri_o_version: "v1.20.2"
+_apt:
+  - { state: "latest", name: "bash-completion" }
+  - { state: "latest", name: "conntrack" }
+  - { state: "latest", name: "iproute2" }
+  - { state: "latest", name: "iptables" }
+  - { state: "latest", name: "socat" }
