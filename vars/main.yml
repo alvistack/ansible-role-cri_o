@@ -14,6 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+_cri_o_version:
+  "v1.21.1": "v1.21.0"
+  "v1.20.7": "v1.20.2"
+  "v1.19.11": "v1.19.1"
+
 _cri_o_download:
   "v1.21.0":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.21.0/cri-o-v1.21.0-linux-amd64.tar.gz"

@@ -14,8 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Kubernetes version.
+kubernetes_version: "v1.20.7"
+
 # CRI-O version.
-cri_o_version: "v1.20.2"
+cri_o_version: "{{ _cri_o_version[kubernetes_version] }}"
 
 # CRI-O download details.
 cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
