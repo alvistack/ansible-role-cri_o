@@ -65,7 +65,6 @@
     - { dest: "/etc/crio/crio.conf.d" }
     - { dest: "/etc/default" }
     - { dest: "/lib/systemd/system" }
-    - { dest: "/lib/systemd/system/crio.service.d" }
     - { dest: "/usr/lib/modules-load.d" }
     - { dest: "/usr/local/bin" }
     - { dest: "/usr/share/containers/oci/hooks.d" }
@@ -181,9 +180,6 @@
     - { dest: "/usr/local/bin/crio", mode: "0755" }
     - { dest: "/usr/local/bin/crio-status", mode: "0755" }
     - { dest: "/usr/local/bin/pinns", mode: "0755" }
-    - { dest: "/usr/local/lib/systemd/system/crio-shutdown.service", state: "absent" }
-    - { dest: "/usr/local/lib/systemd/system/crio-wipe.service", state: "absent" }
-    - { dest: "/usr/local/lib/systemd/system/crio.service", state: "absent" }
     - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
     - cri_o | systemctl daemon-reload
