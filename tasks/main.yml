@@ -75,11 +75,11 @@
     set -euo pipefail
     TMP_DIR="$(mktemp -d)" \
       && cd $TMP_DIR \
-      && mkdir -p ./{{ item.dest | dirname }} \
-      && curl -skL -m 300 {{ item.url }} > ./{{ item.dest }} \
-      && echo -n "{{ item.sha256sum }} ./{{ item.dest }}" | sha256sum -c - \
+      && mkdir -p .{{ item.dest | dirname }} \
+      && curl -skL -m 300 {{ item.url }} > .{{ item.dest }} \
+      && echo -n "{{ item.checksum }} .{{ item.dest }}" | sha256sum -c - \
       && mkdir -p {{ item.dest | dirname }} \
-      && mv ./{{ item.dest }} {{ item.dest }} \
+      && mv .{{ item.dest }} {{ item.dest }} \
       && rm -rf $TMP_DIR
   args:
     executable: "/bin/bash"
@@ -92,7 +92,8 @@
 - name: unarchive package
   shell: |
     set -euo pipefail
-    exec &> >(tee -a {{ cri_o_download.dest }}.log)
+    mkdir -p /var/log/ansible
+    exec &> >(tee -a /var/log/ansible/{{ cri_o_download.checksum }}.log)
     cd /usr/local/bin
     TMP_DIR="$(mktemp -d)" \
       && tar -zx -C $TMP_DIR -f {{ cri_o_download.dest }} --strip-components=1 \
@@ -102,7 +103,7 @@
       && rm -rf $TMP_DIR
   args:
     executable: "/bin/bash"
-    creates: "{{ cri_o_download.dest }}.log"
+    creates: "/var/log/ansible/{{ cri_o_download.checksum }}.log"
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service

@@ -22,25 +22,25 @@ _cri_o_version:
 _cri_o_download:
   "v1.21.0":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.21.0/cri-o-v1.21.0-linux-amd64.tar.gz"
-    dest: "/var/cache/ansible/4d1e2c0b7f141ae5858567221b4a5c68e9c10f232c4a5a92011f87878fb53ce0/cri-o-v1.21.0-linux-amd64.tar.gz"
-    sha256sum: "4d1e2c0b7f141ae5858567221b4a5c68e9c10f232c4a5a92011f87878fb53ce0"
+    dest: "/tmp/4d1e2c0b7f141ae5858567221b4a5c68e9c10f232c4a5a92011f87878fb53ce0/cri-o-v1.21.0-linux-amd64.tar.gz"
+    checksum: "4d1e2c0b7f141ae5858567221b4a5c68e9c10f232c4a5a92011f87878fb53ce0"
   "v1.20.2":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.2/cri-o-v1.20.2-linux-amd64.tar.gz"
-    dest: "/var/cache/ansible/5e1ecdce54e1639c2753ce5010be3d795b4a200f5219cf1a885919494337b397/cri-o-v1.20.2-linux-amd64.tar.gz"
-    sha256sum: "5e1ecdce54e1639c2753ce5010be3d795b4a200f5219cf1a885919494337b397"
+    dest: "/tmp/5e1ecdce54e1639c2753ce5010be3d795b4a200f5219cf1a885919494337b397/cri-o-v1.20.2-linux-amd64.tar.gz"
+    checksum: "5e1ecdce54e1639c2753ce5010be3d795b4a200f5219cf1a885919494337b397"
   "v1.20.1":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.1/cri-o-v1.20.1-linux-amd64.tar.gz"
-    dest: "/var/cache/ansible/2b31cd48a9d742fa216618f35d0870ce0ff7360031c66eea408d59cc7b9d3ff7/cri-o-v1.20.1-linux-amd64.tar.gz"
-    sha256sum: "2b31cd48a9d742fa216618f35d0870ce0ff7360031c66eea408d59cc7b9d3ff7"
+    dest: "/tmp/2b31cd48a9d742fa216618f35d0870ce0ff7360031c66eea408d59cc7b9d3ff7/cri-o-v1.20.1-linux-amd64.tar.gz"
+    checksum: "2b31cd48a9d742fa216618f35d0870ce0ff7360031c66eea408d59cc7b9d3ff7"
   "v1.20.0":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.0/cri-o-v1.20.0-linux-amd64.tar.gz"
-    dest: "/var/cache/ansible/18abef309aa06da8e3ced85a676ed93b76248b66a933f8bd699b29739c25f708/cri-o-v1.20.0-linux-amd64.tar.gz"
-    sha256sum: "18abef309aa06da8e3ced85a676ed93b76248b66a933f8bd699b29739c25f708"
+    dest: "/tmp/18abef309aa06da8e3ced85a676ed93b76248b66a933f8bd699b29739c25f708/cri-o-v1.20.0-linux-amd64.tar.gz"
+    checksum: "18abef309aa06da8e3ced85a676ed93b76248b66a933f8bd699b29739c25f708"
   "v1.19.1":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.19.1/cri-o-v1.19.1-linux-amd64.tar.gz"
-    dest: "/var/cache/ansible/9ff9f192eb38ce8a4c8fdea891138b12fec8df609733c5a66dc4240004785a7d/cri-o-v1.19.1-linux-amd64.tar.gz"
-    sha256sum: "9ff9f192eb38ce8a4c8fdea891138b12fec8df609733c5a66dc4240004785a7d"
+    dest: "/tmp/9ff9f192eb38ce8a4c8fdea891138b12fec8df609733c5a66dc4240004785a7d/cri-o-v1.19.1-linux-amd64.tar.gz"
+    checksum: "9ff9f192eb38ce8a4c8fdea891138b12fec8df609733c5a66dc4240004785a7d"
   "v1.19.0":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.19.0/cri-o-v1.19.0-linux-amd64.tar.gz"
-    dest: "/var/cache/ansible/441a907983a82a5b860ad3354f8fb85c70e8556c62f4afc463e09d0b35f2d101/cri-o-v1.19.0-linux-amd64.tar.gz"
-    sha256sum: "441a907983a82a5b860ad3354f8fb85c70e8556c62f4afc463e09d0b35f2d101"
+    dest: "/tmp/441a907983a82a5b860ad3354f8fb85c70e8556c62f4afc463e09d0b35f2d101/cri-o-v1.19.0-linux-amd64.tar.gz"
+    checksum: "441a907983a82a5b860ad3354f8fb85c70e8556c62f4afc463e09d0b35f2d101"
