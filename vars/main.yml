@@ -17,7 +17,7 @@
 _cri_o_version:
   "v1.21": "v1.21.0"
   "v1.20": "v1.20.3"
-  "v1.19": "v1.19.1"
+  "v1.19": "v1.19.2"
 
 _cri_o_download:
   "v1.21.0":
@@ -40,6 +40,10 @@ _cri_o_download:
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.0/cri-o-v1.20.0-linux-amd64.tar.gz"
     dest: "/tmp/18abef309aa06da8e3ced85a676ed93b76248b66a933f8bd699b29739c25f708/cri-o-v1.20.0-linux-amd64.tar.gz"
     checksum: "18abef309aa06da8e3ced85a676ed93b76248b66a933f8bd699b29739c25f708"
+  "v1.19.2":
+    url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.19.2/cri-o-v1.19.2-linux-amd64.tar.gz"
+    dest: "/tmp/9d5812e09d747fb480178a4be9279e0d9420ab2c726599f1f94b6b0e4cfb1fe3/cri-o-v1.19.2-linux-amd64.tar.gz"
+    checksum: "9d5812e09d747fb480178a4be9279e0d9420ab2c726599f1f94b6b0e4cfb1fe3"
   "v1.19.1":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.19.1/cri-o-v1.19.1-linux-amd64.tar.gz"
     dest: "/tmp/9ff9f192eb38ce8a4c8fdea891138b12fec8df609733c5a66dc4240004785a7d/cri-o-v1.19.1-linux-amd64.tar.gz"
