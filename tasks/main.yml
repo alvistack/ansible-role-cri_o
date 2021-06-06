@@ -74,7 +74,7 @@
 
 - name: download archive
   shell: |
-    set -euo pipefail
+    set -euxo pipefail
     TMP_DIR="$(mktemp -d)" \
       && cd $TMP_DIR \
       && mkdir -p .{{ item.dest | dirname }} \
@@ -93,7 +93,7 @@
 
 - name: unarchive package
   shell: |
-    set -euo pipefail
+    set -euxo pipefail
     mkdir -p /var/log/ansible
     exec &> >(tee -a /var/log/ansible/{{ cri_o_download.checksum }}.log)
     cd /usr/local/bin
@@ -137,7 +137,7 @@
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   shell: |
-    set -euo pipefail
+    set -euxo pipefail
     crio complete bash > /etc/bash_completion.d/crio
     crio-status complete bash > /etc/bash_completion.d/crio-status
   args:
