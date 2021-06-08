@@ -74,28 +74,28 @@
 
 - name: download archive
   shell: |
-    set -euo pipefail
+    set -euxo pipefail
+    mkdir -p /var/log/ansible
+    exec &> >(tee -a /var/log/ansible/{{ cri_o_download.checksum }}-get_url.log)
     TMP_DIR="$(mktemp -d)" \
       && cd $TMP_DIR \
-      && mkdir -p .{{ item.dest | dirname }} \
-      && curl -skL -m 300 {{ item.url }} > .{{ item.dest }} \
-      && echo -n "{{ item.checksum }} .{{ item.dest }}" | sha256sum -c - \
-      && mkdir -p {{ item.dest | dirname }} \
-      && mv .{{ item.dest }} {{ item.dest }} \
+      && mkdir -p .{{ cri_o_download.dest | dirname }} \
+      && curl -skL -m 300 {{ cri_o_download.url }} > .{{ cri_o_download.dest }} \
+      && echo -n "{{ cri_o_download.checksum }} .{{ cri_o_download.dest }}" | sha256sum -c - \
+      && mkdir -p {{ cri_o_download.dest | dirname }} \
+      && mv .{{ cri_o_download.dest }} {{ cri_o_download.dest }} \
       && rm -rf $TMP_DIR
   args:
     executable: "/bin/bash"
-    creates: "{{ item.dest | dirname }}"
-  loop:
-    - "{{ cri_o_download }}"
+    creates: "/var/log/ansible/{{ cri_o_download.checksum }}-get_url.log"
   register: result
   until: result is succeeded
 
 - name: unarchive package
   shell: |
-    set -euo pipefail
+    set -euxo pipefail
     mkdir -p /var/log/ansible
-    exec &> >(tee -a /var/log/ansible/{{ cri_o_download.checksum }}.log)
+    exec &> >(tee -a /var/log/ansible/{{ cri_o_download.checksum }}-unarchive.log)
     cd /usr/local/bin
     TMP_DIR="$(mktemp -d)" \
       && tar -zx -C $TMP_DIR -f {{ cri_o_download.dest }} --strip-components=1 \
@@ -105,7 +105,7 @@
       && rm -rf $TMP_DIR
   args:
     executable: "/bin/bash"
-    creates: "/var/log/ansible/{{ cri_o_download.checksum }}.log"
+    creates: "/var/log/ansible/{{ cri_o_download.checksum }}-unarchive.log"
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service
@@ -137,7 +137,7 @@
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   shell: |
-    set -euo pipefail
+    set -euxo pipefail
     crio complete bash > /etc/bash_completion.d/crio
     crio-status complete bash > /etc/bash_completion.d/crio-status
   args:
