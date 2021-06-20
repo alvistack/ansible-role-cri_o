@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # Kubernetes release.
-kubernetes_release: "v1.20"
+kubernetes_release: "v1.21"
 
 # CRI-O version.
 cri_o_version: "{{ _cri_o_version[kubernetes_release] }}"
