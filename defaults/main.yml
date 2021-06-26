@@ -31,6 +31,9 @@ cri_o_crio_storage_driver: "overlay"
 # The name is matched against the runtimes map below.
 cri_o_crio_runtime_default_runtime: "crun"
 
+# Cgroup setting for conmon.
+cri_o_crio_runtime_conmon_cgroup: "system.slice"
+
 # Used to change the name of the default AppArmor profile of CRI-O. The default
 # profile name is "crio-default-" followed by the version string of CRI-O.
 cri_o_crio_runtime_apparmor_profile: "crio-default"
