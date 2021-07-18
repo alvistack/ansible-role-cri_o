@@ -15,31 +15,31 @@
 # limitations under the License.
 
 _cri_o_version:
-  "v1.21": "v1.21.1"
-  "v1.20": "v1.20.3"
+  "1.21": "1.21.1"
+  "1.20": "1.20.3"
 
 _cri_o_download:
-  "v1.21.1":
+  "1.21.1":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.21.1/cri-o-v1.21.1-linux-amd64.tar.gz"
     dest: "/var/cache/ansible/30fd6ad24f8f99f6d0ca68f212bc977bbd9c0025e36b92f08a7bd531f37859ee/cri-o-v1.21.1-linux-amd64.tar.gz"
     checksum: "30fd6ad24f8f99f6d0ca68f212bc977bbd9c0025e36b92f08a7bd531f37859ee"
-  "v1.21.0":
+  "1.21.0":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.21.0/cri-o-v1.21.0-linux-amd64.tar.gz"
     dest: "/var/cache/ansible/4d1e2c0b7f141ae5858567221b4a5c68e9c10f232c4a5a92011f87878fb53ce0/cri-o-v1.21.0-linux-amd64.tar.gz"
     checksum: "4d1e2c0b7f141ae5858567221b4a5c68e9c10f232c4a5a92011f87878fb53ce0"
-  "v1.20.3":
+  "1.20.3":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.3/cri-o-v1.20.3-linux-amd64.tar.gz"
     dest: "/var/cache/ansible/1de347e40f098ea5cdb58b85da077494f13ca2e8839381f8d2d9ec71c3c15397/cri-o-v1.20.3-linux-amd64.tar.gz"
     checksum: "1de347e40f098ea5cdb58b85da077494f13ca2e8839381f8d2d9ec71c3c15397"
-  "v1.20.2":
+  "1.20.2":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.2/cri-o-v1.20.2-linux-amd64.tar.gz"
     dest: "/var/cache/ansible/5e1ecdce54e1639c2753ce5010be3d795b4a200f5219cf1a885919494337b397/cri-o-v1.20.2-linux-amd64.tar.gz"
     checksum: "5e1ecdce54e1639c2753ce5010be3d795b4a200f5219cf1a885919494337b397"
-  "v1.20.1":
+  "1.20.1":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.1/cri-o-v1.20.1-linux-amd64.tar.gz"
     dest: "/var/cache/ansible/2b31cd48a9d742fa216618f35d0870ce0ff7360031c66eea408d59cc7b9d3ff7/cri-o-v1.20.1-linux-amd64.tar.gz"
     checksum: "2b31cd48a9d742fa216618f35d0870ce0ff7360031c66eea408d59cc7b9d3ff7"
-  "v1.20.0":
+  "1.20.0":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.0/cri-o-v1.20.0-linux-amd64.tar.gz"
     dest: "/var/cache/ansible/18abef309aa06da8e3ced85a676ed93b76248b66a933f8bd699b29739c25f708/cri-o-v1.20.0-linux-amd64.tar.gz"
     checksum: "18abef309aa06da8e3ced85a676ed93b76248b66a933f8bd699b29739c25f708"

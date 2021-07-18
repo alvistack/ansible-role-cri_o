@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-kubernetes_release: "v1.20"
+kubernetes_release: "1.20"
 
 cri_o_crio_runtime_cgroup_manager: "cgroupfs"
 cri_o_crio_runtime_conmon_cgroup: "pod"
