@@ -14,4 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+containers_common_engine_runtime: "runc"
+
 kubernetes_release: "1.20"
+
+cri_o_crio_runtime_default_runtime: "runc"
