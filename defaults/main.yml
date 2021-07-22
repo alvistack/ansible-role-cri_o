@@ -29,17 +29,17 @@ cri_o_crio_storage_driver: "overlay"
 
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
 # The name is matched against the runtimes map below.
-cri_o_crio_runtime_default_runtime: "crun"
+cri_o_crio_runtime_default_runtime: "{{ _cri_o_crio_runtime_default_runtime }}"
 
 # Cgroup setting for conmon.
-cri_o_crio_runtime_conmon_cgroup: "system.slice"
+cri_o_crio_runtime_conmon_cgroup: "{{ _cri_o_crio_runtime_conmon_cgroup }}"
 
 # Used to change the name of the default AppArmor profile of CRI-O. The default
 # profile name is "crio-default-" followed by the version string of CRI-O.
 cri_o_crio_runtime_apparmor_profile: "crio-default"
 
 # Cgroup management implementation used for the runtime.
-cri_o_crio_runtime_cgroup_manager: "systemd"
+cri_o_crio_runtime_cgroup_manager: "{{ _cri_o_crio_runtime_cgroup_manager }}"
 
 # Changes the verbosity of the logs based on the level it is set to. Options
 # are fatal, panic, error, warn, info, debug and trace. This option supports

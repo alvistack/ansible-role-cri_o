@@ -20,3 +20,9 @@ _apt:
   - { state: "latest", name: "iproute2" }
   - { state: "latest", name: "iptables" }
   - { state: "latest", name: "socat" }
+
+_cri_o_crio_runtime_default_runtime: "crun"
+
+_cri_o_crio_runtime_conmon_cgroup: "system.slice"
+
+_cri_o_crio_runtime_cgroup_manager: "systemd"
