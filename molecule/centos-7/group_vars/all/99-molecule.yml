@@ -13,8 +13,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-kubernetes_release: "1.20"
-
-cri_o_crio_runtime_cgroup_manager: "cgroupfs"
-cri_o_crio_runtime_conmon_cgroup: "pod"

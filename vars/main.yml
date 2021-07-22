@@ -15,10 +15,14 @@
 # limitations under the License.
 
 _cri_o_version:
-  "1.21": "1.21.1"
+  "1.21": "1.21.2"
   "1.20": "1.20.3"
 
 _cri_o_download:
+  "1.21.2":
+    url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.21.2/cri-o-v1.21.2-linux-amd64.tar.gz"
+    dest: "/var/cache/ansible/f461acde5b852a562001702a11ac4ca494efdfd4eaec2cdace88d037cdd1e1d7/cri-o-v1.21.2-linux-amd64.tar.gz"
+    checksum: "f461acde5b852a562001702a11ac4ca494efdfd4eaec2cdace88d037cdd1e1d7"
   "1.21.1":
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.21.1/cri-o-v1.21.1-linux-amd64.tar.gz"
     dest: "/var/cache/ansible/30fd6ad24f8f99f6d0ca68f212bc977bbd9c0025e36b92f08a7bd531f37859ee/cri-o-v1.21.1-linux-amd64.tar.gz"
@@ -39,7 +43,3 @@ _cri_o_download:
     url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.1/cri-o-v1.20.1-linux-amd64.tar.gz"
     dest: "/var/cache/ansible/2b31cd48a9d742fa216618f35d0870ce0ff7360031c66eea408d59cc7b9d3ff7/cri-o-v1.20.1-linux-amd64.tar.gz"
     checksum: "2b31cd48a9d742fa216618f35d0870ce0ff7360031c66eea408d59cc7b9d3ff7"
-  "1.20.0":
-    url: "http://github.com/alvistack/cri-o-cri-o/releases/download/v1.20.0/cri-o-v1.20.0-linux-amd64.tar.gz"
-    dest: "/var/cache/ansible/18abef309aa06da8e3ced85a676ed93b76248b66a933f8bd699b29739c25f708/cri-o-v1.20.0-linux-amd64.tar.gz"
-    checksum: "18abef309aa06da8e3ced85a676ed93b76248b66a933f8bd699b29739c25f708"
