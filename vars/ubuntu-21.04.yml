@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+_kube_release: "1.20"
+
 _apt:
   - { state: "latest", name: "bash-completion" }
   - { state: "latest", name: "conntrack" }
