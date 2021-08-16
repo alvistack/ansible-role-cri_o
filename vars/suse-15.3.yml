@@ -23,8 +23,8 @@ _zypper:
   - { state: "latest", name: "iptables" }
   - { state: "latest", name: "socat" }
 
-_cri_o_crio_runtime_default_runtime: "runc"
+_cri_o_crio_runtime_default_runtime: "crun"
 
-_cri_o_crio_runtime_conmon_cgroup: "pod"
+_cri_o_crio_runtime_conmon_cgroup: "system.slice"
 
-_cri_o_crio_runtime_cgroup_manager: "cgroupfs"
+_cri_o_crio_runtime_cgroup_manager: "systemd"
