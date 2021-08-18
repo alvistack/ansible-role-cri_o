@@ -53,6 +53,9 @@ cri_o_crio_runtime_manage_ns_lifecycle: "true"
 # Globally enable or disable metrics support.
 cri_o_crio_metrics_enable_metrics: "true"
 
+# Endpoint of CRI container runtime service.
+cri_o_runtime_endpoint: "unix:///var/run/crio/crio.sock"
+
 # Kernel modules.
 cri_o_modprobe:
   - { state: "present", option: "br_netfilter" }

@@ -154,6 +154,7 @@
     mode: "{{ item.mode | default('0644') }}"
   loop:
     - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
+    - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/default/crio" }
     - { dest: "/etc/systemd/system/crio-shutdown.service" }
@@ -175,6 +176,7 @@
     - { dest: "/etc/bash_completion.d/crio" }
     - { dest: "/etc/bash_completion.d/crio-status" }
     - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
+    - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf" }
     - { dest: "/etc/systemd/system/crio-shutdown.service" }
     - { dest: "/etc/systemd/system/crio-wipe.service" }
