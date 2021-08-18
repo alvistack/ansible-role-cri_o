@@ -116,6 +116,7 @@ conmon_cgroup = "{{ cri_o_crio_runtime_conmon_cgroup }}"
 # environment variables to conmon or the runtime.
 conmon_env = [
     "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "TERM=xterm",
 ]
 
 # Additional environment variables to set for all the
