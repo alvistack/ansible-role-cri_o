@@ -16,12 +16,22 @@
 
 _kube_release: "1.20"
 
+_apt_key:
+  - url: "http://download.opensuse.org/repositories/home:/alvistack/xUbuntu_21.04/Release.key"
+    id: "789CFFDE0295B8A1F4E5690C4BECC97550D0B1FD"
+    state: "present"
+
+_apt_repository:
+  - repo: "deb http://download.opensuse.org/repositories/home:/alvistack/xUbuntu_21.04 /"
+    state: "present"
+
 _apt:
   - { state: "latest", name: "bash-completion" }
   - { state: "latest", name: "conntrack" }
   - { state: "latest", name: "iproute2" }
   - { state: "latest", name: "iptables" }
   - { state: "latest", name: "socat" }
+  - { state: "present", name: "cri-o=100:{{ cri_o_version }}*" }
 
 _cri_o_crio_runtime_default_runtime: "crun"
 
