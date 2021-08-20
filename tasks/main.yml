@@ -116,7 +116,7 @@
   loop:
     - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
     - { dest: "/etc/crictl.yaml" }
-    - { dest: "/etc/crio/crio.conf" }
+    - { dest: "/etc/crio/crio.conf.d/00-defaults.conf" }
     - { dest: "/etc/default/crio" }
     - { dest: "/etc/systemd/system/crio-shutdown.service" }
     - { dest: "/etc/systemd/system/crio-wipe.service" }
@@ -138,7 +138,7 @@
     - { dest: "/etc/bash_completion.d/crio-status" }
     - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
     - { dest: "/etc/crictl.yaml" }
-    - { dest: "/etc/crio/crio.conf" }
+    - { dest: "/etc/crio/crio.conf.d/00-defaults.conf" }
     - { dest: "/etc/systemd/system/crio-shutdown.service" }
     - { dest: "/etc/systemd/system/crio-wipe.service" }
     - { dest: "/etc/systemd/system/crio.service" }
