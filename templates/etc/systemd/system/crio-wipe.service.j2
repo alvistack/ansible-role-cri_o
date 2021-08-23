@@ -8,7 +8,7 @@ Wants=crio.service
 [Service]
 Type=oneshot
 EnvironmentFile=-/etc/default/crio
-ExecStart=/usr/local/bin/crio \
+ExecStart=/usr/bin/crio \
           $CRIO_CONFIG_OPTIONS \
           $CRIO_RUNTIME_OPTIONS \
           $CRIO_STORAGE_OPTIONS \

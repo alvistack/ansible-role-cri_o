@@ -8,7 +8,7 @@ Wants=crio.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStop=/usr/local/bin/crictl rm -af
+ExecStop=/usr/bin/crictl rm -af
 
 [Install]
 WantedBy=multi-user.target

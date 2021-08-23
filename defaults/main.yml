@@ -20,9 +20,6 @@ kube_release: "{{ _kube_release }}"
 # CRI-O version.
 cri_o_version: "{{ _cri_o_version[kube_release] }}"
 
-# CRI-O download details.
-cri_o_download: "{{ _cri_o_download[cri_o_version] }}"
-
 # Storage driver used to manage the storage of images and containers. Please
 # refer to containers-storage.conf(5) to see all available storage drivers.
 cri_o_crio_storage_driver: "overlay"
@@ -52,6 +49,12 @@ cri_o_crio_runtime_manage_ns_lifecycle: "true"
 
 # Globally enable or disable metrics support.
 cri_o_crio_metrics_enable_metrics: "true"
+
+# Endpoint of CRI container runtime service.
+cri_o_runtime_endpoint: "unix:///var/run/crio/crio.sock"
+
+# Endpoint of CRI image manager service service.
+cri_o_image_endpoint: "unix:///var/run/crio/crio.sock"
 
 # Kernel modules.
 cri_o_modprobe:
