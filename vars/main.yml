@@ -15,5 +15,5 @@
 # limitations under the License.
 
 _cri_o_version:
-  "1.21": "1.21.2"
-  "1.20": "1.20.1"
+  "1.21": "1.21.3"
+  "1.20": "1.20.5"
