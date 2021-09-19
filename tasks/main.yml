@@ -61,7 +61,6 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
-    - { dest: "/etc/bash_completion.d" }
     - { dest: "/etc/cni/net.d" }
     - { dest: "/etc/crio" }
     - { dest: "/etc/crio/crio.conf.d" }
@@ -94,18 +93,6 @@
   notify:
     - cri_o | sysctl --system
 
-- name: install bash completion
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-  shell: |
-    set -euxo pipefail
-    crio complete bash > /etc/bash_completion.d/crio
-    crio-status complete bash > /etc/bash_completion.d/crio-status
-  args:
-    executable: "/bin/bash"
-  changed_when: false
-  failed_when: false
-
 - name: copy templates
   template:
     dest: "{{ item.dest }}"
@@ -134,8 +121,6 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
-    - { dest: "/etc/bash_completion.d/crio" }
-    - { dest: "/etc/bash_completion.d/crio-status" }
     - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
     - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf.d/00-defaults.conf" }
