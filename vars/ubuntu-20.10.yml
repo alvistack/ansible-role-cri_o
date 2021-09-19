@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_kube_release: "1.21"
+_kube_release: "1.22"
 
 _apt_key:
   - keyring: "/etc/apt/trusted.gpg.d/home_alvistack.gpg"

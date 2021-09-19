@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_kube_release: "1.21"
+_kube_release: "1.22"
 
 _rpm_key:
   - key: "http://download.opensuse.org/repositories/home:/alvistack/Fedora_34/repodata/repomd.xml.key"
