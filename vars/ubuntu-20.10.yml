@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_kube_release: "1.20"
+_kube_release: "1.22"
 
 _apt_key:
   - keyring: "/etc/apt/trusted.gpg.d/home_alvistack.gpg"
@@ -24,11 +24,10 @@ _apt_key:
 
 _apt_repository:
   - filename: "home:alvistack"
-    repo: "deb http://download.opensuse.org/repositories/home:/alvistack/xUbuntu_20.10 /"
+    repo: "deb http://download.opensuse.org/repositories/home:/alvistack/xUbuntu_20.10/ /"
     state: "present"
 
 _apt:
-  - { state: "latest", name: "bash-completion" }
   - { state: "latest", name: "conntrack" }
   - { state: "latest", name: "iproute2" }
   - { state: "latest", name: "iptables" }
