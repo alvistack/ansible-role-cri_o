@@ -1,5 +1,7 @@
 # Ansible Role for CRI-O
 
+<img src="/alvistack.svg" width="75" alt="AlviStack">
+
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/ansible-role-cri_o/master)](https://gitlab.com/alvistack/ansible-role-cri_o/-/pipelines)
 [![GitHub release](https://img.shields.io/github/release/alvistack/ansible-role-cri_o.svg)](https://github.com/alvistack/ansible-role-cri_o/releases)
 [![GitHub license](https://img.shields.io/github/license/alvistack/ansible-role-cri_o.svg)](https://github.com/alvistack/ansible-role-cri_o/blob/master/LICENSE)
