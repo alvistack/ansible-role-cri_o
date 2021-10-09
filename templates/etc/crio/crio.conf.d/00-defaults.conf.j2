@@ -314,17 +314,17 @@ default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 
 {% if cri_o_crio_runtime_default_runtime == 'crun' %}
 [crio.runtime.runtimes.crun]
-runtime_path = ""
+runtime_path = "/usr/bin/crun"
 runtime_type = "oci"
 runtime_root = "/run/crun"
 {% elif cri_o_crio_runtime_default_runtime == 'runc' -%}
 [crio.runtime.runtimes.runc]
-runtime_path = ""
+runtime_path = "/usr/lib/cri-o-runc/sbin/runc"
 runtime_type = "oci"
 runtime_root = "/run/runc"
 {% elif cri_o_crio_runtime_default_runtime == 'kata-runtime' %}
 [crio.runtime.runtimes.kata-runtime]
-runtime_path = ""
+runtime_path = "/opt/kata/bin/kata-runtime"
 runtime_type = "oci"
 runtime_root = "/run/kata-runtime"
 {%- endif %}
