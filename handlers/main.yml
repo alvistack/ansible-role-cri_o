@@ -15,25 +15,25 @@
 # limitations under the License.
 
 - name: cri_o | systemctl restart systemd-modules-load.service
-  service:
+  ansible.builtin.service:
     name: "systemd-modules-load.service"
     state: "restarted"
   changed_when: false
   failed_when: false
 
 - name: cri_o | sysctl --system
-  command: sysctl --system
+  ansible.builtin.command: sysctl --system
   changed_when: false
   failed_when: false
 
 - name: cri_o | systemctl daemon-reload
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
   changed_when: false
   failed_when: false
 
 - name: cri_o | systemctl restart crio.service
-  service:
+  ansible.builtin.service:
     name: "crio.service"
     state: "restarted"
     enabled: true

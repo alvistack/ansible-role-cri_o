@@ -17,7 +17,7 @@
 - name: rpm --import
   vars:
     ansible_python_interpreter: "python3"
-  rpm_key:
+  ansible.builtin.rpm_key:
     key: "{{ item.key }}"
     fingerprint: "{{ item.fingerprint }}"
     state: "{{ item.state }}"
@@ -26,8 +26,8 @@
   until: result is succeeded
 
 - name: yum-config-manager --add-repo
-  yum_repository:
-    file: "{{ item.file }}"
+  ansible.builtin.yum_repository:
+    ansible.builtin.file: "{{ item.file }}"
     name: "{{ item.name }}"
     description: "{{ item.description }}"
     baseurl: "{{ item.baseurl }}"
@@ -41,7 +41,7 @@
   loop: "{{ _yum_repository }}"
 
 - name: zypper removelock
-  command: zypper removelock {{ item.name | regex_replace('^(.*)-[0-9]*:*[0-9]+\..*$', '\1-*') }}
+  ansible.builtin.command: zypper removelock {{ item.name | regex_replace('^(.*)-[0-9]*:*[0-9]+\..*$', '\1-*') }}
   loop: "{{ _zypper }}"
   when: item.state == "present"
   changed_when: false
@@ -50,7 +50,7 @@
 - name: zypper install
   vars:
     ansible_python_interpreter: "python3"
-  zypper:
+  ansible.builtin.zypper:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
   loop: "{{ _zypper }}"
@@ -58,7 +58,7 @@
   until: result is succeeded
 
 - name: zypper addlock
-  command: zypper addlock {{ item.name | regex_replace('^(.*)-[0-9]*:*[0-9]+\..*$', '\1-*') }}
+  ansible.builtin.command: zypper addlock {{ item.name | regex_replace('^(.*)-[0-9]*:*[0-9]+\..*$', '\1-*') }}
   loop: "{{ _zypper }}"
   when: item.state == "present"
   changed_when: false
