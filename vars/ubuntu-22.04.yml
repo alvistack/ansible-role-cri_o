@@ -16,29 +16,23 @@
 
 _kube_release: "1.23"
 
-_rpm_key:
-  - key: "http://download.opensuse.org/repositories/home:/alvistack/CentOS_8_Stream/repodata/repomd.xml.key"
-    fingerprint: "789CFFDE0295B8A1F4E5690C4BECC97550D0B1FD"
+_apt_key:
+  - keyring: "/etc/apt/trusted.gpg.d/home_alvistack.gpg"
+    url: "http://download.opensuse.org/repositories/home:/alvistack/xUbuntu_22.04/Release.key"
+    id: "789CFFDE0295B8A1F4E5690C4BECC97550D0B1FD"
     state: "present"
 
-_yum_repository:
-  - file: "home:alvistack"
-    name: "home_alvistack"
-    description: "home:alvistack (CentOS_8)"
-    baseurl: "http://download.opensuse.org/repositories/home:/alvistack/CentOS_8_Stream"
-    enabled: true
-    priority: "2"
-    module_hotfixes: true
-    gpgcheck: true
-    gpgkey: "http://download.opensuse.org/repositories/home:/alvistack/CentOS_8_Stream/repodata/repomd.xml.key"
+_apt_repository:
+  - filename: "home:alvistack"
+    repo: "deb http://download.opensuse.org/repositories/home:/alvistack/xUbuntu_22.04/ /"
     state: "present"
 
-_yum:
-  - { state: "latest", name: "conntrack-tools" }
-  - { state: "latest", name: "iproute" }
+_apt:
+  - { state: "latest", name: "conntrack" }
+  - { state: "latest", name: "iproute2" }
   - { state: "latest", name: "iptables" }
   - { state: "latest", name: "socat" }
-  - { state: "present", name: "cri-o-100:{{ cri_o_version }}*" }
+  - { state: "present", name: "cri-o=100:{{ cri_o_version }}*" }
 
 _cri_o_crio_runtime_default_runtime: "crun"
 
