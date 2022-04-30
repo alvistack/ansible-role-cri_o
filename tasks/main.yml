@@ -91,7 +91,7 @@
     reload: false
   loop: "{{ cri_o_sysctl }}"
   notify:
-    - cri_o | sysctl --system
+    - cri_o | systemctl restart systemd-sysctl.service
 
 - name: copy templates
   ansible.builtin.template:

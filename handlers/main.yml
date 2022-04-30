@@ -21,8 +21,10 @@
   changed_when: false
   failed_when: false
 
-- name: cri_o | sysctl --system
-  ansible.builtin.command: sysctl --system
+- name: cri_o | systemctl restart systemd-sysctl.service
+  ansible.builtin.service:
+    name: "systemd-sysctl.service"
+    state: "restarted"
   changed_when: false
   failed_when: false
 
