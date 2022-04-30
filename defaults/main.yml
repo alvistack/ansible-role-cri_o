@@ -85,10 +85,13 @@ cri_o_sysctl:
   - { state: "present", name: "net.bridge.bridge-nf-call-arptables", value: "1" }
   - { state: "present", name: "net.bridge.bridge-nf-call-ip6tables", value: "1" }
   - { state: "present", name: "net.bridge.bridge-nf-call-iptables", value: "1" }
+  - { state: "present", name: "net.ipv4.conf.*.rp_filter", value: "0" }
+  - { state: "present", name: "net.ipv4.conf.all.rp_filter", value: "0" }
+  - { state: "present", name: "net.ipv4.conf.default.rp_filter", value: "0" }
   - { state: "present", name: "net.ipv4.ip_forward", value: "1" }
+  - { state: "present", name: "net.ipv6.conf.*.disable_ipv6", value: "1" }
   - { state: "present", name: "net.ipv6.conf.all.disable_ipv6", value: "1" }
   - { state: "present", name: "net.ipv6.conf.all.forwarding", value: "0" }
   - { state: "present", name: "net.ipv6.conf.default.disable_ipv6", value: "1" }
-  - { state: "present", name: "net.ipv6.conf.lo.disable_ipv6", value: "1" }
   - { state: "present", name: "vm.min_free_kbytes", value: "65536" }
   - { state: "present", name: "vm.swappiness", value: "0" }
