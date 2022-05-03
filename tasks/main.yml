@@ -61,7 +61,6 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
-    - { dest: "/etc/cni/net.d" }
     - { dest: "/etc/crio" }
     - { dest: "/etc/crio/crio.conf.d" }
     - { dest: "/etc/default" }
@@ -101,7 +100,6 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
-    - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
     - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf.d/00-defaults.conf" }
     - { dest: "/etc/default/crio" }
@@ -121,7 +119,6 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
-    - { dest: "/etc/cni/net.d/87-crio-bridge.conf" }
     - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf.d/00-defaults.conf" }
     - { dest: "/etc/systemd/system/crio-shutdown.service" }
