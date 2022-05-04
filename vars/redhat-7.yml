@@ -40,7 +40,7 @@ _yum:
   - { state: "latest", name: "socat" }
   - { state: "present", name: "cri-o-100:{{ cri_o_version }}*" }
 
-_cri_o_crio_runtime_default_runtime: "runc"
+_cri_o_crio_runtime_default_runtime: "crun"
 
 _cri_o_crio_runtime_conmon_cgroup: "pod"
 
