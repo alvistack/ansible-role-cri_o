@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_kube_release: "1.23"
+_kube_release: "1.24"
 
 _rpm_key:
   - key: "http://download.opensuse.org/repositories/home:/alvistack/CentOS_7/repodata/repomd.xml.key"
@@ -40,7 +40,7 @@ _yum:
   - { state: "latest", name: "socat" }
   - { state: "present", name: "cri-o-100:{{ cri_o_version }}*" }
 
-_cri_o_crio_runtime_default_runtime: "runc"
+_cri_o_crio_runtime_default_runtime: "crun"
 
 _cri_o_crio_runtime_conmon_cgroup: "pod"
 
