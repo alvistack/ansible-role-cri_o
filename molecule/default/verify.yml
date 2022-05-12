@@ -18,7 +18,12 @@
   remote_user: root
   become: true
   tasks:
-    - name: crio --version
-      ansible.builtin.command: crio --version
+    - name: ansible --version
+      ansible.builtin.command: ansible --version
+      register: result
+      changed_when: result is not succeeded
+
+    - name: ansible-lint --version
+      ansible.builtin.command: ansible-lint --version
       register: result
       changed_when: result is not succeeded
