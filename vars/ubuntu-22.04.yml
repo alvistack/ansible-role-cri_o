@@ -28,7 +28,7 @@ _apt_repository:
     state: "present"
 
 _apt:
-  - { state: "latest", name: "libfuse3" }
+  - { state: "latest", name: "libfuse3-3" }
   - { state: "latest", name: "conntrack" }
   - { state: "latest", name: "iproute2" }
   - { state: "latest", name: "iptables" }
