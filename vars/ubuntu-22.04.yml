@@ -28,6 +28,7 @@ _apt_repository:
     state: "present"
 
 _apt:
+  - { state: "latest", name: "crun" }
   - { state: "latest", name: "fuse-overlayfs" }
   - { state: "latest", name: "conntrack" }
   - { state: "latest", name: "iproute2" }
