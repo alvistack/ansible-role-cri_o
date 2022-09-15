@@ -64,10 +64,7 @@
     - { dest: "/etc/crio" }
     - { dest: "/etc/crio/crio.conf.d" }
     - { dest: "/etc/default" }
-    - { dest: "/etc/systemd/system" }
     - { dest: "/usr/lib/modules-load.d" }
-    - { dest: "/usr/share/containers/oci/hooks.d" }
-    - { dest: "/usr/share/oci-umount/oci-umount.d" }
 
 - name: tweak modeprobe entries
   ini_file:
@@ -103,12 +100,7 @@
     - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf.d/00-defaults.conf" }
     - { dest: "/etc/default/crio" }
-    - { dest: "/etc/systemd/system/crio-shutdown.service" }
-    - { dest: "/etc/systemd/system/crio-wipe.service" }
-    - { dest: "/etc/systemd/system/crio.service" }
-    - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
-    - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service
 
 - name: prepare files
@@ -121,13 +113,9 @@
   loop:
     - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf.d/00-defaults.conf" }
-    - { dest: "/etc/systemd/system/crio-shutdown.service" }
-    - { dest: "/etc/systemd/system/crio-wipe.service" }
-    - { dest: "/etc/systemd/system/crio.service" }
+    - { dest: "/etc/default/crio" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
-    - { dest: "/usr/share/oci-umount/oci-umount.d/crio-umount.conf" }
   notify:
-    - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service
 
 - name: flush handlers
@@ -136,22 +124,6 @@
 - name: systemctl start crio.service
   ansible.builtin.service:
     name: "crio.service"
-    state: "started"
-    enabled: true
-  changed_when: false
-  failed_when: false
-
-- name: systemctl start crio-wipe.service
-  ansible.builtin.service:
-    name: "crio-wipe.service"
-    state: "started"
-    enabled: true
-  changed_when: false
-  failed_when: false
-
-- name: systemctl start crio-shutdown.service
-  ansible.builtin.service:
-    name: "crio-shutdown.service"
     state: "started"
     enabled: true
   changed_when: false
