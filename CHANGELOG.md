@@ -4,6 +4,8 @@
 
 ### Major Changes
 
+  - Remove legacy Ansible template with package defaults
+
 ## 6.4.0 - 2022-09-15
 
 ### Major Changes
