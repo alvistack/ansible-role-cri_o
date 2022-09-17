@@ -61,9 +61,7 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
-    - { dest: "/etc/crio" }
     - { dest: "/etc/crio/crio.conf.d" }
-    - { dest: "/etc/default" }
     - { dest: "/usr/lib/modules-load.d" }
 
 - name: tweak modeprobe entries
@@ -99,8 +97,8 @@
   loop:
     - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf.d/00-defaults.conf" }
-    - { dest: "/etc/default/crio" }
   notify:
+    - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service
 
 - name: prepare files
@@ -113,9 +111,12 @@
   loop:
     - { dest: "/etc/crictl.yaml" }
     - { dest: "/etc/crio/crio.conf.d/00-defaults.conf" }
-    - { dest: "/etc/default/crio" }
+    - { dest: "/etc/systemd/system/crio-shutdown.service", state: "absent" }
+    - { dest: "/etc/systemd/system/crio-wipe.service", state: "absent" }
+    - { dest: "/etc/systemd/system/crio.service", state: "absent" }
     - { dest: "/usr/lib/modules-load.d/crio.conf" }
   notify:
+    - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service
 
 - name: flush handlers

@@ -28,6 +28,12 @@
   changed_when: false
   failed_when: false
 
+- name: cri_o | systemctl daemon-reload
+  ansible.builtin.systemd:
+    daemon_reload: true
+  changed_when: false
+  failed_when: false
+
 - name: cri_o | systemctl restart crio.service
   ansible.builtin.service:
     name: "crio.service"

@@ -50,6 +50,9 @@
   loop: "{{ _apt }}"
   register: result
   until: result is succeeded
+  notify:
+    - cri_o | systemctl daemon-reload
+    - cri_o | systemctl restart crio.service
 
 - name: apt-mark hold
   ansible.builtin.dpkg_selections:
