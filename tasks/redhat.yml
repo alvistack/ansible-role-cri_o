@@ -53,6 +53,9 @@
   loop: "{{ _yum }}"
   register: result
   until: result is succeeded
+  notify:
+    - cri_o | systemctl daemon-reload
+    - cri_o | systemctl restart crio.service
 
 - name: yum versionlock add
   community.general.yum_versionlock:
