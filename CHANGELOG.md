@@ -4,8 +4,8 @@
 
 ### Major Changes
 
+  - Support Ubuntu 22.10
   - Support Fedora 37
-
   - Remove legacy Ansible template with package defaults
 
 ## 6.4.0 - 2022-09-15
