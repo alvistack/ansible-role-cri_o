@@ -65,7 +65,7 @@
     - { dest: "/usr/lib/modules-load.d" }
 
 - name: tweak modeprobe entries
-  ini_file:
+  community.general.ini_file:
     option: "{{ item.option }}"
     state: "{{ item.state }}"
     path: "/usr/lib/modules-load.d/crio.conf"
@@ -77,7 +77,7 @@
     - cri_o | systemctl restart systemd-modules-load.service
 
 - name: tweak sysctl entries
-  sysctl:
+  ansible.posix.sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
     state: "{{ item.state }}"
