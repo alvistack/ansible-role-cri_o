@@ -20,6 +20,7 @@
   become: true
   tasks:
     - name: crio --version
-      ansible.builtin.command: crio --version
+      ansible.builtin.command:
+        cmd: crio --version
       register: result
       changed_when: result is not succeeded
