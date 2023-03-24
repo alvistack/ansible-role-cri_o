@@ -14,8 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_cri_o_version:
-  "1.27": "1.27.0~rc0"
-  "1.26": "1.26.2"
-  "1.25": "1.25.2"
-  "1.24": "1.24.4"
+kube_release: "1.24"
