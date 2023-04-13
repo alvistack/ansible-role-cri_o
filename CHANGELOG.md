@@ -4,6 +4,8 @@
 
 ### Major Changes
 
+-   Remove Kubernetes 1.24 support
+
 ## 7.4.0 - 2023-03-29
 
 ### Major Changes
