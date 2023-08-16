@@ -4,6 +4,8 @@
 
 ### Major Changes
 
+-   Support Kubernetes 1.28
+
 ## 8.3.0 - 2023-08-15
 
 ### Major Changes
