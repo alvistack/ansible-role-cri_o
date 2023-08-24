@@ -4,6 +4,7 @@
 
 ### Major Changes
 
+-   Remove Kubernetes 1.25 support
 -   Support Kubernetes 1.28
 
 ## 8.3.0 - 2023-08-15
