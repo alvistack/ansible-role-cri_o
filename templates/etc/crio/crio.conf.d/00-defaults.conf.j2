@@ -53,6 +53,10 @@ version_file_persist = "/var/lib/crio/version"
 # If set to false, one must use the external command 'crio wipe' to wipe the containers and images in these situations.
 internal_wipe = true
 
+# InternalRepair is whether CRI-O should check if the container and image storage was corrupted after a sudden restart.
+# If it was, CRI-O also attempts to repair the storage.
+internal_repair = false
+
 # Location for CRI-O to lay down the clean shutdown file.
 # It is used to check whether crio had time to sync before shutting down.
 # If not found, crio wipe will clear the storage directory.
@@ -91,10 +95,10 @@ stream_tls_key = ""
 # automatically pick up the changes within 5 minutes.
 stream_tls_ca = ""
 
-# Maximum grpc send message size in bytes. If not set or <=0, then CRI-O will default to 16 * 1024 * 1024.
+# Maximum grpc send message size in bytes. If not set or <=0, then CRI-O will default to 80 * 1024 * 1024.
 grpc_max_send_msg_size = 83886080
 
-# Maximum grpc receive message size. If not set or <= 0, then CRI-O will default to 16 * 1024 * 1024.
+# Maximum grpc receive message size. If not set or <= 0, then CRI-O will default to 80 * 1024 * 1024.
 grpc_max_recv_msg_size = 83886080
 
 # The crio.runtime table contains settings pertaining to the OCI runtime used
@@ -150,6 +154,8 @@ seccomp_profile = "{{ cri_o_crio_runtime_seccomp_profile }}"
 # (and according to CRI spec), an empty profile means unconfined.
 # This option tells CRI-O to treat an empty profile as the default profile,
 # which might increase security.
+# This option is currently deprecated,
+# and will be replaced by the SeccompDefault FeatureGate in Kubernetes.
 seccomp_use_default_when_empty = true
 
 # Used to change the name of the default AppArmor profile of CRI-O. The default
@@ -166,6 +172,11 @@ blockio_config_file = ""
 # Used to change irqbalance service config file path which is used for configuring
 # irqbalance daemon.
 irqbalance_config_file = "/etc/sysconfig/irqbalance"
+
+# irqbalance_config_restore_file allows to set a cpu mask CRI-O should
+# restore as irqbalance config at startup. Set to empty string to disable this flow entirely.
+# By default, CRI-O manages the irqbalance configuration to enable dynamic IRQ pinning.
+irqbalance_config_restore_file = "/etc/sysconfig/orig_irq_banned_cpus"
 
 # Path to the RDT configuration file for configuring the resctrl pseudo-filesystem.
 # This option supports live configuration reload.
@@ -196,6 +207,10 @@ default_capabilities = [
     "SETUID",
     "SYS_CHROOT",
 ]
+
+# Add capabilities to the inheritable set, as well as the default group of permitted, bounding and effective.
+# If capabilities are expected to work for non-root users, this option should be set.
+add_inheritable_capabilities = false
 
 # List of default sysctls. If it is empty or commented out, only the sysctls
 # defined in the container json file by the user/kube will be added.
@@ -249,16 +264,15 @@ default_mounts_file = ""
 
 # Maximum number of processes allowed in a container.
 # This option is deprecated. The Kubelet flag '--pod-pids-limit' should be used instead.
-pids_limit = 1024
+pids_limit = 0
 
 # Maximum sized allowed for the container log file. Negative numbers indicate
 # that no size limit is imposed. If it is positive, it must be >= 8192 to
 # match/exceed conmon's read buffer. The file is truncated and re-opened so the
-# limit is never exceeded.
-# This option is deprecated. The Kubelet flag '--container-log-max-size' should be used instead.
+# limit is never exceeded. This option is deprecated. The Kubelet flag '--container-log-max-size' should be used instead.
 log_size_max = -1
 
-# Whether container output should be logged to journald in addition to the kuberentes log file
+# Whether container output should be logged to journald in addition to the kubernetes log file
 log_to_journald = false
 
 # Path to directory in which container exit files are written to by conmon.
@@ -329,14 +343,18 @@ pinns_path = ""
 # checkpoint and restore container or pods (even if CRIU is found in $PATH).
 # enable_criu_support = false
 
+# Enable/disable the generation of the container,
+# sandbox lifecycle events to be sent to the Kubelet to optimize the PLEG
+enable_pod_events = false
+
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
-# The name is matched against the runtimes map below. If this value is changed,
-# the corresponding existing entry from the runtimes map below will be ignored.
+# default_runtime is the _name_ of the OCI runtime to be used as the default.
+# The name is matched against the runtimes map below.
 default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 
 # A list of paths that, when absent from the host,
 # will cause a container creation to fail (as opposed to the current behavior being created as a directory).
-# This option is to protect from source locations whose existence as a directory could jepordize the health of the node, and whose
+# This option is to protect from source locations whose existence as a directory could jeopardize the health of the node, and whose
 # creation as a file is not desired either.
 # An example is /etc/hostname, which will cause failures on reboot if it's created as a directory, but often doesn't exist because
 # the hostname is being managed dynamically.
@@ -345,24 +363,29 @@ absent_mount_sources_to_reject = [
 
 # The "crio.runtime.runtimes" table defines a list of OCI compatible runtimes.
 # The runtime to use is picked based on the runtime handler provided by the CRI.
-# If no runtime handler is provided, the runtime will be picked based on the level
-# of trust of the workload. Each entry in the table should follow the format:
+# If no runtime handler is provided, the "default_runtime" will be used.
+# Each entry in the table should follow the format:
 #
 #[crio.runtime.runtimes.runtime-handler]
 #  runtime_path = "/path/to/the/executable"
 #  runtime_type = "oci"
 #  runtime_root = "/path/to/the/root"
+# monitor_path = "/path/to/container/monitor"
+# monitor_cgroup = "/cgroup/path"
+# monitor_exec_cgroup = "/cgroup/path"
+# monitor_env = []
 #  privileged_without_host_devices = false
 #  allowed_annotations = []
+# platform_runtime_paths = { "os/arch" = "/path/to/binary" }
 # Where:
-# - runtime-handler: name used to identify the runtime
-# - runtime_path (optional, string): absolute path to the runtime executable in
+# - runtime-handler: Name used to identify the runtime.
+# - runtime_path (optional, string): Absolute path to the runtime executable in
 #   the host filesystem. If omitted, the runtime-handler identifier should match
 #   the runtime executable name, and the runtime executable should be placed
 #   in $PATH.
-# - runtime_type (optional, string): type of runtime, one of: "oci", "vm". If
+# - runtime_type (optional, string): Type of runtime, one of: "oci", "vm". If
 #   omitted, an "oci" runtime is assumed.
-# - runtime_root (optional, string): root directory for storage of containers
+# - runtime_root (optional, string): Root directory for storage of containers
 #   state.
 # - runtime_config_path (optional, string): the path for the runtime configuration
 #   file. This can only be used with when using the VM runtime_type.
@@ -378,56 +401,76 @@ absent_mount_sources_to_reject = [
 #   "io.kubernetes.cri-o.UnifiedCgroup.$CTR_NAME" for configuring the cgroup v2 unified block for a container.
 #   "io.containers.trace-syscall" for tracing syscalls via the OCI seccomp BPF hook.
 #   "io.kubernetes.cri.rdt-class" for setting the RDT class of a container
-# - monitor_exec_cgroup (optional, string): if set to "container", indicates exec probes
+# - monitor_path (optional, string): The path of the monitor binary. Replaces
+#   deprecated option "conmon".
+# - monitor_cgroup (optional, string): The cgroup the container monitor process will be put in.
+#   Replaces deprecated option "conmon_cgroup".
+# - monitor_exec_cgroup (optional, string): If set to "container", indicates exec probes
 #   should be moved to the container's cgroup
+# - monitor_env (optional, array of strings): Environment variables to pass to the montior.
+#   Replaces deprecated option "conmon_env".
+# - platform_runtime_paths (optional, map): A mapping of platforms to the corresponding
+#   runtime executable paths for the runtime handler.
+#
+# Using the seccomp notifier feature:
+#
+# This feature can help you to debug seccomp related issues, for example if
+# blocked syscalls (permission denied errors) have negative impact on the workload.
+#
+# To be able to use this feature, configure a runtime which has the annotation
+# "io.kubernetes.cri-o.seccompNotifierAction" in the allowed_annotations array.
+#
+# It also requires at least runc 1.1.0 or crun 0.19 which support the notifier
+# feature.
+#
+# If everything is setup, CRI-O will modify chosen seccomp profiles for
+# containers if the annotation "io.kubernetes.cri-o.seccompNotifierAction" is
+# set on the Pod sandbox. CRI-O will then get notified if a container is using
+# a blocked syscall and then terminate the workload after a timeout of 5
+# seconds if the value of "io.kubernetes.cri-o.seccompNotifierAction=stop".
+#
+# This also means that multiple syscalls can be captured during that period,
+# while the timeout will get reset once a new syscall has been discovered.
+#
+# This also means that the Pods "restartPolicy" has to be set to "Never",
+# otherwise the kubelet will restart the container immediately.
+#
+# Please be aware that CRI-O is not able to get notified if a syscall gets
+# blocked based on the seccomp defaultAction, which is a general runtime
+# limitation.
+
 
 {% if cri_o_crio_runtime_default_runtime == 'crun' %}
 [crio.runtime.runtimes.crun]
 runtime_path = "/usr/bin/crun"
 runtime_type = "oci"
 runtime_root = "/run/crun"
+runtime_config_path = ""
 {% elif cri_o_crio_runtime_default_runtime == 'runc' -%}
 [crio.runtime.runtimes.runc]
 runtime_path = "/usr/lib/cri-o-runc/sbin/runc"
 runtime_type = "oci"
 runtime_root = "/run/runc"
+runtime_config_path = ""
 {% elif cri_o_crio_runtime_default_runtime == 'kata-runtime' %}
 [crio.runtime.runtimes.kata-runtime]
 runtime_path = "/opt/kata/bin/kata-runtime"
 runtime_type = "oci"
 runtime_root = "/run/kata-runtime"
+runtime_config_path = ""
 {%- endif %}
-
+monitor_path = ""
+monitor_cgroup = "system.slice"
+monitor_exec_cgroup = ""
+monitor_env = [
+    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "TERM=xterm",
+]
 allowed_annotations = [
     "io.containers.trace-syscall",
 ]
+privileged_without_host_devices = false
 
-# monitor_path = ""
-
-# monitor_env = [
-#     "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-# ]
-
-# monitor_cgroup = "system.slice"
-
-# monitor_exec_cgroup = ""
-
-# crun is a fast and lightweight fully featured OCI runtime and C library for
-# running containers
-#[crio.runtime.runtimes.crun]
-
-# Kata Containers is an OCI runtime, where containers are run inside lightweight
-# VMs. Kata provides additional isolation towards the host, minimizing the host attack
-# surface and mitigating the consequences of containers breakout.
-
-# Kata Containers with the default configured VMM
-#[crio.runtime.runtimes.kata-runtime]
-
-# Kata Containers with the QEMU VMM
-#[crio.runtime.runtimes.kata-qemu]
-
-# Kata Containers with the Firecracker VMM
-#[crio.runtime.runtimes.kata-fc]
 
 # The workloads table defines ways to customize containers with different resources
 # that work based on annotations, rather than the CRI.
@@ -454,6 +497,16 @@ allowed_annotations = [
 # To configure the cpu shares a container gets in the example above, the pod would have to have the following annotation:
 # "io.crio.workload-type/$container_name = {"cpushares": "value"}"
 
+# hostnetwork_disable_selinux determines whether
+# SELinux should be disabled within a pod when it is running in the host network namespace
+# Default value is set to true
+hostnetwork_disable_selinux = true
+
+# disable_hostport_mapping determines whether to enable/disable
+# the container hostport mapping in CRI-O.
+# Default value is set to 'false'
+disable_hostport_mapping = false
+
 # The crio.image table contains settings pertaining to the management of OCI images.
 #
 # CRI-O reads its configured registries defaults from the system wide
@@ -472,7 +525,7 @@ global_auth_file = ""
 
 # The image used to instantiate infra containers.
 # This option supports live configuration reload.
-pause_image = "registry.k8s.io/pause:3.6"
+pause_image = "registry.k8s.io/pause:3.9"
 
 # The path to a file containing credentials specific for pulling the pause_image from
 # above. The file is similar to that of /var/lib/kubelet/config.json
@@ -485,12 +538,28 @@ pause_image_auth_file = ""
 # default: "/pause". This option supports live configuration reload.
 pause_command = "/pause"
 
+# List of images to be excluded from the kubelet's garbage collection.
+# It allows specifying image names using either exact, glob, or keyword
+# patterns. Exact matches must match the entire name, glob matches can
+# have a wildcard * at the end, and keyword matches can have wildcards
+# on both ends. By default, this list includes the "pause" image if
+# configured by the user, which is used as a placeholder in Kubernetes pods.
+pinned_images = [
+]
+
 # Path to the file which decides what sort of policy we use when deciding
 # whether or not to trust an image that we've pulled. It is not recommended that
 # this option be used, as the default behavior of using the system-wide default
 # policy (i.e., /etc/containers/policy.json) is most often preferred. Please
 # refer to containers-policy.json(5) for more details.
 signature_policy = ""
+
+# Root path for pod namespace-separated signature policies.
+# The final policy to be used on image pull will be <SIGNATURE_POLICY_DIR>/<NAMESPACE>.json.
+# If no pod namespace is being provided on image pull (via the sandbox config),
+# or the concatenated path is non existent, then the signature_policy or system
+# wide policy will be used as fallback. Must be an absolute path.
+signature_policy_dir = "/etc/crio/policies"
 
 # List of registries to skip TLS verification for pulling images. Please
 # consider configuring the registries via /etc/containers/registries.conf before
@@ -548,6 +617,7 @@ enable_metrics = {{ cri_o_crio_metrics_enable_metrics | bool | lower }}
 #     "image_pulls_successes",
 #     "image_pulls_layer_size",
 #     "image_layer_reuse",
+#      "containers_events_dropped_total",
 #     "containers_oom_total",
 #     "containers_oom",
 #     "processes_defunct",
@@ -561,6 +631,8 @@ enable_metrics = {{ cri_o_crio_metrics_enable_metrics | bool | lower }}
 #     "image_pulls_success_total",
 #     "image_layer_reuse_total",
 #     "containers_oom_count_total",
+#      "containers_seccomp_notifier_count_total",
+#      "resources_stalled_at_stage",
 # ]
 
 # The port on which the metrics server will listen.
@@ -588,8 +660,32 @@ metrics_key = ""
 # Address on which the gRPC trace collector listens on.
 # tracing_endpoint = "0.0.0.0:4317"
 
-# Number of samples to collect per million spans.
+# Number of samples to collect per million spans. Set to 1000000 to always sample.
 # tracing_sampling_rate_per_million = 0
+
+# CRI-O NRI configuration.
+[crio.nri]
+
+# Globally enable or disable NRI.
+enable_nri = false
+
+# NRI socket to listen on.
+nri_listen = "/var/run/nri/nri.sock"
+
+# NRI plugin directory to use.
+nri_plugin_dir = "/opt/nri/plugins"
+
+# NRI plugin configuration directory to use.
+nri_plugin_config_dir = "/etc/nri/conf.d"
+
+# Disable connections from externally launched NRI plugins.
+nri_disable_connections = false
+
+# Timeout for a plugin to register itself with NRI.
+nri_plugin_registration_timeout = "5s"
+
+# Timeout for a plugin to handle an NRI request.
+nri_plugin_request_timeout = "2s"
 
 # Necessary information pertaining to container and pod stats reporting.
 [crio.stats]
