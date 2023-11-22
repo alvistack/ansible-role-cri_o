@@ -47,7 +47,7 @@ version_file = "/var/run/crio/version"
 # Location for CRI-O to lay down the persistent version file.
 # It is used to check if crio wipe should wipe images, which should
 # only happen when CRI-O has been upgraded
-version_file_persist = "/var/lib/crio/version"
+version_file_persist = "/var/run/crio/version"
 
 # InternalWipe is whether CRI-O should wipe containers and images after a reboot when the server starts.
 # If set to false, one must use the external command 'crio wipe' to wipe the containers and images in these situations.
@@ -634,7 +634,6 @@ enable_metrics = {{ cri_o_crio_metrics_enable_metrics | bool | lower }}
 #      "containers_seccomp_notifier_count_total",
 #      "resources_stalled_at_stage",
 # ]
-
 # The port on which the metrics server will listen.
 metrics_port = 9090
 
