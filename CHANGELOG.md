@@ -2,9 +2,10 @@
 
 ## 9.1.0 - TBC
 
+-   Support Kubernetes 1.29
+
 ## 9.0.0 - 2023-11-08
 
--   Support Kubernetes 1.29
 -   Support Ansible community package 9.0.0
 
 ## 8.6.0 - 2023-11-08
