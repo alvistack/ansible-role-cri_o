@@ -2,6 +2,7 @@
 
 ## 9.1.0 - TBC
 
+-   Remove Kubernetes 1.26 support
 -   Remove Fedora 37 support
 -   Remove openSUSE Leap 15.4 support
 -   Support Kubernetes 1.29
@@ -70,9 +71,7 @@
 ## 7.2.0 - 2023-02-01
 
 -   Support Ansible community package 7.2.0
-
 -   Support Kubernetes 1.26
-
 -   Remove Kubernetes 1.23 support
 
 ## 7.1.0 - 2022-12-09
@@ -92,11 +91,8 @@
 ## 6.5.0 - 2022-10-14
 
 -   Support Ansible community package 6.5.0
-
 -   Support Ubuntu 22.10
-
 -   Support Fedora 37
-
 -   Remove legacy Ansible template with package defaults
 
 ## 6.4.0 - 2022-09-15
