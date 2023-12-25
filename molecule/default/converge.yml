@@ -23,24 +23,19 @@
     - name: include role
       ansible.builtin.include_role:
         name: alvistack.crun
-      tags: alvistack.crun
 
     - name: include role
       ansible.builtin.include_role:
         name: alvistack.containers_common
-      tags: alvistack.containers_common
 
     - name: include role
       ansible.builtin.include_role:
         name: alvistack.containernetworking_plugins
-      tags: alvistack.containernetworking_plugins
 
     - name: include role
       ansible.builtin.include_role:
         name: alvistack.conmon
-      tags: alvistack.conmon
 
     - name: include role
       ansible.builtin.include_role:
         name: alvistack.cri_o
-      tags: alvistack.cri_o
