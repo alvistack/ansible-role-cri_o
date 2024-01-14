@@ -4,6 +4,7 @@
 
 ## 9.1.0 - 2023-12-25
 
+-   Remove Ubuntu 23.04 support
 -   Support Ansible community package 9.1.0
 -   Remove Kubernetes 1.26 support
 -   Remove Fedora 37 support
