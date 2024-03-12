@@ -17,25 +17,25 @@
 _kube_release: "1.29"
 
 _apt_key:
-  - keyring: "/etc/apt/trusted.gpg.d/home_alvistack.gpg"
-    url: "http://downloadcontent.opensuse.org/repositories/home:/alvistack/xUbuntu_23.10/Release.key"
-    id: "789CFFDE0295B8A1F4E5690C4BECC97550D0B1FD"
-    state: "present"
+  - keyring: /etc/apt/trusted.gpg.d/home_alvistack.gpg
+    url: http://downloadcontent.opensuse.org/repositories/home:/alvistack/xUbuntu_23.10/Release.key
+    id: 789CFFDE0295B8A1F4E5690C4BECC97550D0B1FD
+    state: present
 
 _apt_repository:
-  - filename: "home:alvistack"
-    repo: "deb http://downloadcontent.opensuse.org/repositories/home:/alvistack/xUbuntu_23.10/ /"
-    state: "present"
+  - filename: home:alvistack
+    repo: deb http://downloadcontent.opensuse.org/repositories/home:/alvistack/xUbuntu_23.10/ /
+    state: present
 
 _apt:
-  - { state: "latest", name: "conntrack" }
-  - { state: "latest", name: "iproute2" }
-  - { state: "latest", name: "iptables" }
-  - { state: "latest", name: "socat" }
-  - { state: "present", name: "cri-o=100:{{ cri_o_version }}*" }
+  - { state: latest, name: conntrack }
+  - { state: latest, name: iproute2 }
+  - { state: latest, name: iptables }
+  - { state: latest, name: socat }
+  - { state: present, name: "cri-o=100:{{ cri_o_version }}*" }
 
-_cri_o_crio_runtime_default_runtime: "crun"
+_cri_o_crio_runtime_default_runtime: crun
 
-_cri_o_crio_runtime_conmon_cgroup: "system.slice"
+_cri_o_crio_runtime_conmon_cgroup: system.slice
 
-_cri_o_crio_runtime_cgroup_manager: "systemd"
+_cri_o_crio_runtime_cgroup_manager: systemd
