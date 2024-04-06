@@ -2,6 +2,8 @@
 
 ## 9.5.0 - TBC
 
+-   Support Kubernetes 1.30
+
 ## 9.4.0 - TBC
 
 -   Support Ansible community package 9.4.0
