@@ -2,6 +2,7 @@
 
 ## 9.5.0 - TBC
 
+-   Support Ubuntu 24.04
 -   Support Kubernetes 1.30
 
 ## 9.4.0 - TBC
