@@ -38,4 +38,6 @@ _cri_o_crio_runtime_default_runtime: crun
 
 _cri_o_crio_runtime_conmon_cgroup: system.slice
 
+_cri_o_crio_runtime_apparmor_profile: crio-default
+
 _cri_o_crio_runtime_cgroup_manager: systemd
