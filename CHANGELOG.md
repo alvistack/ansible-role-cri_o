@@ -1,7 +1,11 @@
 # Ansible Role for CRI-O
 
-## 9.5.0 - TBC
+## 9.6.0 - TBC
 
+## 9.5.0 - 2024-04-24
+
+-   Support Fedora 40
+-   Support Ansible community package 9.5.0
 -   Support Ubuntu 24.04
 -   Support Kubernetes 1.30
 
