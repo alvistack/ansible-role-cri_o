@@ -38,6 +38,17 @@ cri_o_crio_storage_options_overlay_mount_program: /usr/bin/fuse-overlayfs
 # mountopt specifies comma separated list of extra mount options.
 cri_o_crio_storage_options_overlay_mountopt: nodev
 
+# InternalWipe is whether CRI-O should wipe containers and images after a
+# reboot when the ser ver starts. If set to false, one must use the
+# external command 'crio wipe' to wipe the containers and i mages in these
+# situations.
+cri_o_crio_internal_wipe: false
+
+# InternalRepair is whether CRI-O should check if the container and image
+# storage was corrupted after a sudden restart. If it was, CRI-O also
+# attempts to repair the storage.
+cri_o_crio_internal_repair: true
+
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
 # The name is matched against the runtimes map below.
 cri_o_crio_runtime_default_runtime: "{{ _cri_o_crio_runtime_default_runtime }}"
