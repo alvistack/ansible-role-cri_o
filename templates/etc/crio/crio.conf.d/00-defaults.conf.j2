@@ -54,11 +54,11 @@ version_file_persist = "/var/run/crio/version"
 
 # InternalWipe is whether CRI-O should wipe containers and images after a reboot when the server starts.
 # If set to false, one must use the external command 'crio wipe' to wipe the containers and images in these situations.
-# internal_wipe = true
+internal_wipe = {{ cri_o_crio_internal_wipe | bool | lower }}
 
 # InternalRepair is whether CRI-O should check if the container and image storage was corrupted after a sudden restart.
 # If it was, CRI-O also attempts to repair the storage.
-# internal_repair = false
+internal_repair = {{ cri_o_crio_internal_repair | bool | lower }}
 
 # Location for CRI-O to lay down the clean shutdown file.
 # It is used to check whether crio had time to sync before shutting down.
@@ -351,13 +351,12 @@ log_level = "{{ cri_o_crio_runtime_log_level }}"
 
 # Globally enable/disable CRIU support which is necessary to
 # checkpoint and restore container or pods (even if CRIU is found in $PATH).
-# enable_criu_support = false
+# enable_criu_support = true
 
 # Enable/disable the generation of the container,
 # sandbox lifecycle events to be sent to the Kubelet to optimize the PLEG
 # enable_pod_events = false
 
-# default_runtime is the _name_ of the OCI runtime to be used as the default.
 # default_runtime is the _name_ of the OCI runtime to be used as the default.
 # The name is matched against the runtimes map below.
 default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
@@ -387,6 +386,7 @@ default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 # privileged_without_host_devices = false
 # allowed_annotations = []
 # platform_runtime_paths = { "os/arch" = "/path/to/binary" }
+# no_sync_log = false
 # Where:
 # - runtime-handler: Name used to identify the runtime.
 # - runtime_path (optional, string): Absolute path to the runtime executable in
@@ -419,6 +419,7 @@ default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 #     Note that the annotation works on containers as well as on images.
 #     For images, the plain annotation "seccomp-profile.kubernetes.cri-o.io"
 #     can be used without the required "/POD" suffix or a container name.
+#   "io.kubernetes.cri-o.DisableFIPS" for disabling FIPS mode in a Kubernetes pod within a FIPS-enabled cluster.
 # - monitor_path (optional, string): The path of the monitor binary. Replaces
 #   deprecated option "conmon".
 # - monitor_cgroup (optional, string): The cgroup the container monitor process will be put in.
@@ -429,6 +430,12 @@ default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 #   Replaces deprecated option "conmon_env".
 # - platform_runtime_paths (optional, map): A mapping of platforms to the corresponding
 #   runtime executable paths for the runtime handler.
+# - container_min_memory (optional, string): The minimum memory that must be set for a container.
+#   This value can be used to override the currently set global value for a specific runtime. If not set,
+#   a global default value of "12 MiB" will be used.
+# - no_sync_log (optional, bool): If set to true, the runtime will not sync the log file on rotate or container exit.
+#   This option is only valid for the 'oci' runtime type. Setting this option to true can cause data loss, e.g.
+#   when a machine crash happens.
 #
 # Using the seccomp notifier feature:
 #
@@ -538,10 +545,7 @@ privileged_without_host_devices = false
 # The crio.image table contains settings pertaining to the management of OCI images.
 #
 # CRI-O reads its configured registries defaults from the system wide
-# containers-registries.conf(5) located in /etc/containers/registries.conf. If
-# you want to modify just CRI-O, you can change the registries configuration in
-# this file. Otherwise, leave insecure_registries and registries commented out to
-# use the system's defaults from /etc/containers/registries.conf.
+# containers-registries.conf(5) located in /etc/containers/registries.conf.
 [crio.image]
 
 # Default transport for pulling images from a remote container storage.
@@ -553,7 +557,7 @@ privileged_without_host_devices = false
 
 # The image used to instantiate infra containers.
 # This option supports live configuration reload.
-# pause_image = "registry.k8s.io/pause:3.9"
+# pause_image = "registry.k8s.io/pause:3.10"
 
 # The path to a file containing credentials specific for pulling the pause_image from
 # above. The file is similar to that of /var/lib/kubelet/config.json
@@ -602,6 +606,10 @@ privileged_without_host_devices = false
 # Temporary directory to use for storing big files
 # big_files_temporary_dir = ""
 
+# If true, CRI-O will automatically reload the mirror registry when
+# there is an update to the 'registries.conf.d' directory. Default value is set to 'false'.
+# auto_reload_registries = false
+
 # The crio.network table containers settings pertaining to the management of
 # CNI plugins.
 [crio.network]
@@ -621,6 +629,10 @@ plugin_dirs = [
 	"/usr/lib/cni",
 	"/opt/cni/bin",
 ]
+
+# List of included pod metrics.
+# included_pod_metrics = [
+# ]
 
 # A necessary configuration for Prometheus based metrics retrieval
 [crio.metrics]
@@ -712,4 +724,8 @@ enable_metrics = {{ cri_o_crio_metrics_enable_metrics | bool | lower }}
 # The number of seconds between collecting pod and container stats.
 # If set to 0, the stats are collected on-demand instead.
 # stats_collection_period = 0
+
+# The number of seconds between collecting pod/container stats and pod
+# sandbox metrics. If set to 0, the metrics/stats are collected on-demand instead.
+# collection_period = 0
 
