@@ -4,6 +4,7 @@
 
 ## 10.5.0 - 2024-10-14
 
+- Support Ubuntu 24.10
 - Support Ansible community package 10.5.0
 
 - Remove Kubernetes 1.28 support
