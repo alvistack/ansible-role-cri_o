@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_kube_release: "1.30"
+_kube_release: "1.31"
 
 _rpm_key:
   - key: http://downloadcontent.opensuse.org/repositories/home:/alvistack/openSUSE_Tumbleweed/repodata/repomd.xml.key
