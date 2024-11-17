@@ -2,6 +2,8 @@
 
 ## 11.0.0 - TBC
 
+- Support Ansible community package 11.0.0
+
 ## 10.6.0 - 2024-11-09
 
 - Support Fedora 41
@@ -11,7 +13,6 @@
 
 - Support Ubuntu 24.10
 - Support Ansible community package 10.5.0
-
 - Remove Kubernetes 1.28 support
 
 ## 10.4.0 - 2024-09-11
