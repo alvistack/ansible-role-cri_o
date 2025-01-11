@@ -2,6 +2,7 @@
 
 ## 11.2.0 - TBC
 
+- Replace with `ansible.builtin.deb822_repository`
 - Remove Kubernetes 1.29 support
 - Remove Debian 11 support
 - Remove openSUSE Leap 15.5 support
