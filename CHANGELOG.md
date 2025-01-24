@@ -2,6 +2,7 @@
 
 ## 11.2.0 - TBC
 
+- Replace `apt-key` with `get_url`
 - Replace with `ansible.builtin.deb822_repository`
 - Remove Kubernetes 1.29 support
 - Remove Debian 11 support
