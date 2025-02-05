@@ -34,8 +34,8 @@ storage_driver = "{{ cri_o_crio_storage_driver }}"
 # List to pass options to the storage driver. Please refer to
 # containers-storage.conf(5) to see all available storage options.
 storage_option = [
-	"overlay.mount_program={{ cri_o_crio_storage_options_overlay_mount_program }}",
-	"overlay.mountopt={{ cri_o_crio_storage_options_overlay_mountopt }}",
+    "overlay.mount_program={{ cri_o_crio_storage_options_overlay_mount_program }}",
+    "overlay.mountopt={{ cri_o_crio_storage_options_overlay_mountopt }}",
 ]
 
 # The default log directory where all logs will go unless directly specified by
@@ -85,17 +85,16 @@ internal_repair = {{ cri_o_crio_internal_repair | bool | lower }}
 # stream_idle_timeout = ""
 
 # Path to the x509 certificate file used to serve the encrypted stream. This
-# file can change, and CRI-O will automatically pick up the changes within 5
-# minutes.
+# file can change, and CRI-O will automatically pick up the changes.
 # stream_tls_cert = ""
 
 # Path to the key file used to serve the encrypted stream. This file can
-# change and CRI-O will automatically pick up the changes within 5 minutes.
+# change and CRI-O will automatically pick up the changes.
 # stream_tls_key = ""
 
 # Path to the x509 CA(s) file used to verify and authenticate client
 # communication with the encrypted stream. This file can change and CRI-O will
-# automatically pick up the changes within 5 minutes.
+# automatically pick up the changes.
 # stream_tls_ca = ""
 
 # Maximum grpc send message size in bytes. If not set or <=0, then CRI-O will default to 80 * 1024 * 1024.
@@ -135,8 +134,8 @@ conmon_cgroup = "{{ cri_o_crio_runtime_conmon_cgroup }}"
 # environment variables to conmon or the runtime.
 # This option is currently deprecated, and will be replaced with RuntimeHandler.MonitorEnv.
 conmon_env = [
-	"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-	"TERM=xterm",
+    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "TERM=xterm",
 ]
 
 # Additional environment variables to set for all the
@@ -192,20 +191,20 @@ cgroup_manager = "{{ cri_o_crio_runtime_cgroup_manager }}"
 # only the capabilities defined in the containers json file by the user/kube
 # will be added.
 default_capabilities = [
-	"AUDIT_WRITE",
-	"CHOWN",
-	"DAC_OVERRIDE",
-	"FOWNER",
-	"FSETID",
-	"KILL",
-	"MKNOD",
-	"NET_BIND_SERVICE",
-	"NET_RAW",
-	"SETFCAP",
-	"SETGID",
-	"SETPCAP",
-	"SETUID",
-	"SYS_CHROOT",
+    "AUDIT_WRITE",
+    "CHOWN",
+    "DAC_OVERRIDE",
+    "FOWNER",
+    "FSETID",
+    "KILL",
+    "MKNOD",
+    "NET_BIND_SERVICE",
+    "NET_RAW",
+    "SETFCAP",
+    "SETGID",
+    "SETPCAP",
+    "SETUID",
+    "SYS_CHROOT",
 ]
 
 # Add capabilities to the inheritable set, as well as the default group of permitted, bounding and effective.
@@ -220,7 +219,8 @@ default_capabilities = [
 # List of devices on the host that a
 # user can specify with the "io.kubernetes.cri-o.Devices" allowed annotation.
 # allowed_devices = [
-# 	"/dev/fuse",
+#   "/dev/fuse",
+#   "/dev/net/tun",
 # ]
 
 # List of additional devices. specified as
@@ -232,8 +232,8 @@ default_capabilities = [
 
 # List of directories to scan for CDI Spec files.
 # cdi_spec_dirs = [
-# 	"/etc/cdi",
-# 	"/var/run/cdi",
+#     "/etc/cdi",
+#     "/var/run/cdi",
 # ]
 
 # Change the default behavior of setting container devices uid/gid from CRI's
@@ -244,7 +244,7 @@ default_capabilities = [
 # Path to OCI hooks directories for automatically executed hooks. If one of the
 # directories does not exist, then CRI-O will automatically skip them.
 # hooks_dir = [
-# 	"/usr/share/containers/oci/hooks.d",
+#     "/usr/share/containers/oci/hooks.d",
 # ]
 
 # Path to the file specifying the defaults mounts for each container. The
@@ -379,6 +379,7 @@ default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 # runtime_path = "/path/to/the/executable"
 # runtime_type = "oci"
 # runtime_root = "/path/to/the/root"
+# inherit_default_runtime = false
 # monitor_path = "/path/to/container/monitor"
 # monitor_cgroup = "/cgroup/path"
 # monitor_exec_cgroup = "/cgroup/path"
@@ -387,6 +388,7 @@ default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 # allowed_annotations = []
 # platform_runtime_paths = { "os/arch" = "/path/to/binary" }
 # no_sync_log = false
+# default_annotations = {}
 # Where:
 # - runtime-handler: Name used to identify the runtime.
 # - runtime_path (optional, string): Absolute path to the runtime executable in
@@ -399,6 +401,9 @@ default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 #   state.
 # - runtime_config_path (optional, string): the path for the runtime configuration
 #   file. This can only be used with when using the VM runtime_type.
+# - inherit_default_runtime (optional, bool): when true the runtime_path,
+#   runtime_type, runtime_root and runtime_config_path will be replaced by
+#   the values from the default runtime on load time.
 # - privileged_without_host_devices (optional, bool): an option for restricting
 #   host devices from being passed to privileged containers.
 # - allowed_annotations (optional, array of strings): an option for specifying
@@ -436,6 +441,7 @@ default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 # - no_sync_log (optional, bool): If set to true, the runtime will not sync the log file on rotate or container exit.
 #   This option is only valid for the 'oci' runtime type. Setting this option to true can cause data loss, e.g.
 #   when a machine crash happens.
+# - default_annotations (optional, map): Default annotations if not overridden by the pod spec.
 #
 # Using the seccomp notifier feature:
 #
@@ -470,30 +476,36 @@ default_runtime = "{{ cri_o_crio_runtime_default_runtime }}"
 runtime_path = ""
 runtime_type = "oci"
 runtime_root = "/run/crun"
+inherit_default_runtime = false
 runtime_config_path = ""
+container_min_memory = "500KiB"
 {% elif cri_o_crio_runtime_default_runtime == 'runc' -%}
 [crio.runtime.runtimes.runc]
 runtime_path = ""
 runtime_type = "oci"
 runtime_root = "/run/runc"
+inherit_default_runtime = false
 runtime_config_path = ""
+container_min_memory = "500KiB"
 {% elif cri_o_crio_runtime_default_runtime == 'kata-runtime' %}
 [crio.runtime.runtimes.kata-runtime]
 runtime_path = "/opt/kata/bin/kata-runtime"
 runtime_type = "oci"
 runtime_root = "/run/kata-runtime"
+inherit_default_runtime = false
 runtime_config_path = ""
+container_min_memory = "500KiB"
 {%- endif %}
 monitor_path = ""
 monitor_cgroup = "system.slice"
 monitor_exec_cgroup = ""
 monitor_env = [
-	"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-	"TERM=xterm",
+    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "TERM=xterm",
 ]
 allowed_annotations = [
-	"io.containers.trace-syscall",
-	"io.kubernetes.cri-o.Devices",
+    "io.containers.trace-syscall",
+    "io.kubernetes.cri-o.Devices",
 ]
 privileged_without_host_devices = false
 
@@ -610,6 +622,11 @@ privileged_without_host_devices = false
 # there is an update to the 'registries.conf.d' directory. Default value is set to 'false'.
 # auto_reload_registries = false
 
+# The timeout for an image pull to make progress until the pull operation
+# gets canceled. This value will be also used for calculating the pull progress interval to pull_progress_timeout / 10.
+# Can be set to 0 to disable the timeout as well as the progress output.
+# pull_progress_timeout = "10s"
+
 # The crio.network table containers settings pertaining to the management of
 # CNI plugins.
 [crio.network]
@@ -623,11 +640,11 @@ network_dir = "{{ cri_o_crio_network_network_dir }}"
 
 # Paths to directories where CNI plugin binaries are located.
 plugin_dirs = [
-	"/usr/local/libexec/cni",
-	"/usr/libexec/cni",
-	"/usr/local/lib/cni",
-	"/usr/lib/cni",
-	"/opt/cni/bin",
+    "/usr/local/libexec/cni",
+    "/usr/libexec/cni",
+    "/usr/local/lib/cni",
+    "/usr/lib/cni",
+    "/opt/cni/bin",
 ]
 
 # List of included pod metrics.
@@ -646,22 +663,22 @@ enable_metrics = {{ cri_o_crio_metrics_enable_metrics | bool | lower }}
 # For example, the metrics collector "operations" would be treated in the same
 # way as "crio_operations" and "container_runtime_crio_operations".
 # metrics_collectors = [
-# 	"image_pulls_layer_size",
-# 	"containers_events_dropped_total",
-# 	"containers_oom_total",
-# 	"processes_defunct",
-# 	"operations_total",
-# 	"operations_latency_seconds",
-# 	"operations_latency_seconds_total",
-# 	"operations_errors_total",
-# 	"image_pulls_bytes_total",
-# 	"image_pulls_skipped_bytes_total",
-# 	"image_pulls_failure_total",
-# 	"image_pulls_success_total",
-# 	"image_layer_reuse_total",
-# 	"containers_oom_count_total",
-# 	"containers_seccomp_notifier_count_total",
-# 	"resources_stalled_at_stage",
+#     "image_pulls_layer_size",
+#     "containers_events_dropped_total",
+#     "containers_oom_total",
+#     "processes_defunct",
+#     "operations_total",
+#     "operations_latency_seconds",
+#     "operations_latency_seconds_total",
+#     "operations_errors_total",
+#     "image_pulls_bytes_total",
+#     "image_pulls_skipped_bytes_total",
+#     "image_pulls_failure_total",
+#     "image_pulls_success_total",
+#     "image_layer_reuse_total",
+#     "containers_oom_count_total",
+#     "containers_seccomp_notifier_count_total",
+#     "resources_stalled_at_stage",
 # ]
 # The IP address or hostname on which the metrics server will listen.
 # metrics_host = "127.0.0.1"
@@ -689,7 +706,7 @@ enable_metrics = {{ cri_o_crio_metrics_enable_metrics | bool | lower }}
 # enable_tracing = false
 
 # Address on which the gRPC trace collector listens on.
-# tracing_endpoint = "0.0.0.0:4317"
+# tracing_endpoint = "127.0.0.1:4317"
 
 # Number of samples to collect per million spans. Set to 1000000 to always sample.
 # tracing_sampling_rate_per_million = 0
