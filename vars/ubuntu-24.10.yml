@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_kube_release: "1.31"
+_kube_release: "1.33"
 
 _apt_key:
   - url: http://downloadcontent.opensuse.org/repositories/home:/alvistack/xUbuntu_24.10/Release.key
