@@ -2,6 +2,7 @@
 
 ## 12.0.0 - TBC
 
+- Support Fedora 42
 - Support Kubernetes 1.33
 
 ## 11.5.0 - 2025-04-23
