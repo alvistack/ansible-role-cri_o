@@ -2,6 +2,7 @@
 
 ## 12.0.0 - TBC
 
+- Remove Fedora 40 support
 - Support Fedora 42
 - Support Kubernetes 1.33
 
