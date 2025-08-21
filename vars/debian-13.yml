@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_kube_release: "1.33"
+_kube_release: "1.34"
 
 _apt_key:
   - url: https://downloadcontent.opensuse.org/repositories/home:/alvistack/Debian_13/Release.key
