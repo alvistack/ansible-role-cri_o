@@ -16,29 +16,27 @@
 
 _kube_release: "1.34"
 
-_rpm_key:
-  - key: http://downloadcontent.opensuse.org/repositories/home:/alvistack/CentOS_8_Stream/repodata/repomd.xml.key
-    fingerprint: 789CFFDE0295B8A1F4E5690C4BECC97550D0B1FD
-    state: present
+_apt_key:
+  - url: https://downloadcontent.opensuse.org/repositories/home:/alvistack/Debian_13/Release.key
+    dest: /etc/apt/keyrings/home-alvistack.asc
+    checksum: "sha256:90b960d05e9c5f068f70a6afa1c2623c400312f4e719bd97719d85e49b7de2b2"
 
-_yum_repository:
-  - file: home:alvistack
-    name: home_alvistack
-    description: home:alvistack (CentOS_8_Stream)
-    baseurl: http://downloadcontent.opensuse.org/repositories/home:/alvistack/CentOS_8_Stream
+_deb822_repository:
+  - name: home-alvistack
+    types: deb
+    uris: https://downloadcontent.opensuse.org/repositories/home:/alvistack/Debian_13
+    suites: /
+    components:
+    signed_by: /etc/apt/keyrings/home-alvistack.asc
     enabled: true
-    priority: "2"
-    module_hotfixes: true
-    gpgcheck: true
-    gpgkey: http://downloadcontent.opensuse.org/repositories/home:/alvistack/CentOS_8_Stream/repodata/repomd.xml.key
     state: present
 
-_yum:
-  - { state: latest, name: conntrack-tools }
-  - { state: latest, name: iproute }
+_apt:
+  - { state: latest, name: conntrack }
+  - { state: latest, name: iproute2 }
   - { state: latest, name: iptables }
   - { state: latest, name: socat }
-  - { state: present, name: "cri-o-100:{{ cri_o_version }}*" }
+  - { state: present, name: "cri-o=100:{{ cri_o_version }}*" }
 
 _cri_o_crio_runtime_default_runtime: crun
 

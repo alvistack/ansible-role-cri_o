@@ -2,6 +2,11 @@
 
 ## 12.0.0 - TBC
 
+- Support Kubernetes 1.34
+- Remove Kubernetes 1.31 support
+- Remove Kubernetes 1.30 support
+- Support Debian 13
+
 ## 11.9.0 - 2025-08-17
 
 - Support Ansible community package 11.9.0
