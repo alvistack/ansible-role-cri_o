@@ -2,6 +2,7 @@
 
 ## 12.0.0 - TBC
 
+- Remove Ubuntu 24.10 support
 - Support Kubernetes 1.34
 - Remove Kubernetes 1.31 support
 - Remove Kubernetes 1.30 support
