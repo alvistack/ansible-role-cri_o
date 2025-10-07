@@ -328,7 +328,7 @@ log_level = "{{ cri_o_crio_runtime_log_level }}"
 # drop_infra_ctr determines whether CRI-O drops the infra container
 # when a pod does not have a private PID namespace, and does not use
 # a kernel separating runtime (like kata).
-# It requires manage_ns_lifecycle to be true.
+# It requires managens_lifecycle to be true.
 # drop_infra_ctr = true
 
 # infra_ctr_cpuset determines what CPUs will be used to run infra containers.
@@ -343,7 +343,7 @@ log_level = "{{ cri_o_crio_runtime_log_level }}"
 # shared_cpuset = ""
 
 # The directory where the state of the managed namespaces gets tracked.
-# Only used when manage_ns_lifecycle is true.
+# Only used when managens_lifecycle is true.
 # namespaces_dir = "/var/run"
 
 # pinns_path is the path to find the pinns binary, which is needed to manage namespace lifecycle
