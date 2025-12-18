@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_kube_release: "1.34"
+_kube_release: "1.35"
 
 _rpm_key:
   - key: http://downloadcontent.opensuse.org/repositories/home:/alvistack/openSUSE_Leap_15.6/repodata/repomd.xml.key
