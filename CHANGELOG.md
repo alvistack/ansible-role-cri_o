@@ -2,6 +2,7 @@
 
 ## 13.0.0 - TBC
 
+- Remove Kubernetes 1.32 support
 - Support Kubernetes 1.35
 
 ## 12.2.0 - 2025-11-20
