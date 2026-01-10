@@ -1,6 +1,8 @@
 # Ansible Role for CRI-O
 
-## 13.0.0 - TBC
+## 13.2.0 - TBC
+
+- Support Ansible community package 13.2.0
 
 - Remove Kubernetes 1.32 support
 - Support Kubernetes 1.35
