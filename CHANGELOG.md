@@ -2,6 +2,7 @@
 
 ## 13.2.0 - TBC
 
+- Remove Fedora 41 support
 - Support Ansible community package 13.2.0
 
 - Remove Kubernetes 1.32 support
