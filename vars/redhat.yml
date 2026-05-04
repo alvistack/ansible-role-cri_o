@@ -33,7 +33,7 @@ _yum_repository:
     gpgkey: https://downloadcontent.opensuse.org/repositories/home:/alvistack/Fedora_Rawhide/repodata/repomd.xml.key
     state: present
 
-_yum:
+_dnf:
   - { state: latest, name: conntrack-tools }
   - { state: latest, name: iproute }
   - { state: latest, name: iptables }
