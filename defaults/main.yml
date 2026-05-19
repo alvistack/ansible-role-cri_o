@@ -18,7 +18,7 @@
 kube_release: "{{ _kube_release }}"
 
 # CRI-O version.
-cri_o_version: "{{ _cri_o_version[kube_release] }}"
+cri_o_version: "{{ _cri_o_version }}"
 
 # Path to the "root directory". CRI-O stores all of its data, including
 # containers images, in this directory.
@@ -49,10 +49,6 @@ cri_o_crio_internal_wipe: false
 # attempts to repair the storage.
 cri_o_crio_internal_repair: true
 
-# default_runtime is the _name_ of the OCI runtime to be used as the default.
-# The name is matched against the runtimes map below.
-cri_o_crio_runtime_default_runtime: "{{ _cri_o_crio_runtime_default_runtime }}"
-
 # Cgroup setting for conmon.
 cri_o_crio_runtime_conmon_cgroup: "{{ _cri_o_crio_runtime_conmon_cgroup }}"
 
@@ -72,6 +68,13 @@ cri_o_crio_runtime_cgroup_manager: "{{ _cri_o_crio_runtime_cgroup_manager }}"
 # are fatal, panic, error, warn, info, debug and trace. This option supports
 # live configuration reload.
 cri_o_crio_runtime_log_level: warn
+
+# default_runtime is the _name_ of the OCI runtime to be used as the default.
+# The name is matched against the runtimes map below.
+cri_o_crio_runtime_default_runtime: "{{ _cri_o_crio_runtime_default_runtime }}"
+
+# The image used to instantiate infra containers.
+cri_o_crio_image_pause_image: registry.k8s.io/pause:3.10.1
 
 # Path to the directory where CNI configuration files are located.
 cri_o_crio_network_network_dir: /etc/cni/net.d

@@ -121,6 +121,14 @@
 - name: flush handlers
   ansible.builtin.meta: flush_handlers
 
+- name: systemctl disable crio-wipe.service
+  ansible.builtin.service:
+    name: crio-wipe.service
+    state: stopped
+    enabled: false
+  changed_when: false
+  failed_when: false
+
 - name: systemctl start crio.service
   ansible.builtin.service:
     name: crio.service

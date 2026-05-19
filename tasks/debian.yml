@@ -36,6 +36,8 @@
   loop: "{{ _apt_key }}"
   register: result
   until: result is succeeded
+  tags:
+    - _apt_key
 
 - name: apt-add-repository
   ansible.builtin.deb822_repository:
@@ -51,6 +53,8 @@
   loop: "{{ _deb822_repository }}"
   register: result
   until: result is succeeded
+  tags:
+    - _deb822_repository
 
 - name: apt-get update
   ansible.builtin.apt:
@@ -65,6 +69,8 @@
   when: item.state == "present"
   changed_when: false
   failed_when: false
+  tags:
+    - _apt
 
 - name: apt-get install
   ansible.builtin.apt:
@@ -76,6 +82,8 @@
   notify:
     - cri_o | systemctl daemon-reload
     - cri_o | systemctl restart crio.service
+  tags:
+    - _apt
 
 - name: apt-mark hold
   ansible.builtin.dpkg_selections:
@@ -85,3 +93,5 @@
   when: item.state == "present"
   changed_when: false
   failed_when: false
+  tags:
+    - _apt
