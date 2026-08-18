@@ -74,10 +74,10 @@ cri_o_crio_runtime_log_level: warn
 cri_o_crio_runtime_default_runtime: "{{ _cri_o_crio_runtime_default_runtime }}"
 
 # The image used to instantiate infra containers.
-cri_o_crio_image_pause_image: registry.k8s.io/pause:3.10.1
+cri_o_crio_image_pause_image: k8s.gcr.io/pause:3.10.1
 
 # Path to the directory where CNI configuration files are located.
-cri_o_crio_network_network_dir: /etc/cni/net.d
+cri_o_crio_network_network_dir: /etc/containers/networks
 
 # Globally enable or disable metrics support.
 cri_o_crio_metrics_enable_metrics: "true"
