@@ -38,6 +38,11 @@ _apt:
   - { state: latest, name: socat }
   - { state: present, name: "cri-o=100:{{ cri_o_version }}*" }
 
+_cri_o_crio_storage_driver: overlay
+
+_cri_o_crio_storage_options:
+  - "overlay.mountopt=nodev"
+
 _cri_o_crio_runtime_default_runtime: crun
 
 _cri_o_crio_runtime_conmon_cgroup: system.slice
