@@ -92,21 +92,23 @@ cri_o_modprobe:
 
 # Entries for sysctl.
 cri_o_sysctl:
+  - { state: absent, name: "net.ipv4.conf.{{ ansible_facts['default_ipv4'].interface }}.rp_filter", value: "0" }
+  - { state: absent, name: "net.ipv6.conf.{{ ansible_facts['default_ipv4'].interface }}.disable_ipv6", value: "1" }
+  - { state: absent, name: net.ipv4.conf.*.rp_filter, value: "0" }
+  - { state: absent, name: net.ipv4.conf.lo.rp_filter, value: "0" }
+  - { state: absent, name: net.ipv6.conf.*.disable_ipv6, value: "1" }
+  - { state: absent, name: net.ipv6.conf.lo.disable_ipv6, value: "1" }
+  - { state: present, name: fs.inotify.max_user_instances, value: "8192" }
+  - { state: present, name: fs.inotify.max_user_watches, value: "524288" }
   - { state: present, name: kernel.pid_max, value: "4194303" }
   - { state: present, name: net.bridge.bridge-nf-call-arptables, value: "1" }
   - { state: present, name: net.bridge.bridge-nf-call-ip6tables, value: "1" }
   - { state: present, name: net.bridge.bridge-nf-call-iptables, value: "1" }
-  - { state: present, name: net.ipv4.conf.*.rp_filter, value: "0" }
-  - { state: present, name: net.ipv4.conf.lo.rp_filter, value: "0" }
-  - { state: present, name: "net.ipv4.conf.{{ ansible_facts['default_ipv4'].interface }}.rp_filter", value: "0" }
   - { state: present, name: net.ipv4.conf.all.rp_filter, value: "0" }
   - { state: present, name: net.ipv4.conf.default.rp_filter, value: "0" }
   - { state: present, name: net.ipv4.ip_forward, value: "1" }
-  - { state: present, name: net.ipv6.conf.*.disable_ipv6, value: "1" }
-  - { state: present, name: net.ipv6.conf.lo.disable_ipv6, value: "1" }
-  - { state: present, name: "net.ipv6.conf.{{ ansible_facts['default_ipv4'].interface }}.disable_ipv6", value: "1" }
-  - { state: present, name: net.ipv6.conf.all.disable_ipv6, value: "1" }
-  - { state: present, name: net.ipv6.conf.all.forwarding, value: "0" }
-  - { state: present, name: net.ipv6.conf.default.disable_ipv6, value: "1" }
+  - { state: present, name: net.ipv6.conf.all.disable_ipv6, value: "0" }
+  - { state: present, name: net.ipv6.conf.all.forwarding, value: "1" }
+  - { state: present, name: net.ipv6.conf.default.disable_ipv6, value: "0" }
   - { state: present, name: vm.min_free_kbytes, value: "65536" }
   - { state: present, name: vm.swappiness, value: "0" }
